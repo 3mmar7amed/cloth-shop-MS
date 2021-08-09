@@ -1,23 +1,42 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<meta charset="UTF-8">
+	<title>add item</title>
+	<link rel="stylesheet" href="style\data_form.css">
 </head>
 <body>
-    <div>
-        <form action="" method="get">
+	
+<div class="wrapper">
+	
+	
+	<div class="title">
+		<p>اضافه قطعه</p>
+	</div>
+    
+	<form class="form" method="get" >
+		<div class="input_field">
+			<label>اسم القطعه </label>
+			<input type="text" class="input">
+		</div>
+		<div class="input_field">
+			<label>السعر</label>
+			<input type="number" class="input" step="0.25">
+		</div>
+        <div class="input_field">
+			<label>سعر الجمله </label>
+			<input type="number" class="input" step="0.25">	
+		</div>
+        <div class="input_field">
+			<label>عدد القطع</label>
+			<input type="number" class="input">	
+		
+		<div class="btn">
+			<input type="submit"  class="add_btn" value="اضافه">
+		</div>
+	</form>
+</div>	
 
-            <input type="text">
-            <input type="text">
-            <input type="text">
-            <input type="submit" value="اضافه">
-            
-    
-        </form>
-    </div>
-    
 </body>
 </html>
