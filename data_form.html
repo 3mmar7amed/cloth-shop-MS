@@ -5,6 +5,9 @@
 	<meta charset="UTF-8">
 	<title>add item</title>
 	<link rel="stylesheet" href="style\data_form.css">
+	<link rel="stylesheet" href="style\style.css">
+	<script src="JsBarcode.all.min.js"></script>
+
 </head>
 <body>
 	
@@ -14,7 +17,7 @@
 	<div class="title">
 		<p>اضافه قطعه</p>
 	</div>
-    
+    <!-- form method is get  -->
 	<form class="form" method="get" >
 		<div class="input_field">
 			<label>اسم القطعه </label>
@@ -22,8 +25,10 @@
 		</div>
 		<div class="input_field">
 			<label>السعر</label>
+			<!-- input type is number -->
 			<input type="number" class="input" step="0.25">
 		</div>
+		<!-- input type is number -->
         <div class="input_field">
 			<label>سعر الجمله </label>
 			<input type="number" class="input" step="0.25">	
@@ -36,7 +41,9 @@
 			<input type="submit"  class="add_btn" value="اضافه">
 		</div>
 	</form>
-</div>	
+</div>
+
+
 
 </body>
 </html>

@@ -11,5 +11,10 @@
 body{
     direction: rtl;
 	font-size: 18px;
-	background-color: #f9f9f9;
+	/* background-color: #f9f9f9; */
+	background: url('https://www.google.com/imgres?imgurl=https%3A%2F%2Fimage.shutterstock.com%2Fimage-illustration%2Fblue-room-3d-background-260nw-1043622814.jpg&imgrefurl=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fblue%2Bbackground&tbnid=rJ8uZtV_Rl4Q2M&vet=12ahUKEwi6qNabzKTyAhVzgM4BHetfBWIQMygLegUIARDkAQ..i&docid=orF8N8UydUVv8M&w=462&h=280&q=background%20image&ved=2ahUKEwi6qNabzKTyAhVzgM4BHetfBWIQMygLegUIARDkAQ');
+	background-repeat: repeat;
+	background-size: cover;
 }
+
+
