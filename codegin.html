@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>barcode</title>
+    <script src="JsBarcode.all.min.js"></script>
+
+</head>
+<body>
+    <input type="text" name="barcode" id="barcode">
+    <button id="code_gen">كود</button>
+    <svg id="barcode"></svg>
+
+
+    <div id="info">
+    </div>
+
+<script type="text/javascript" >
+document.getElementById("code_gen").addEventListener('click', function(){
+    var text = document.getElementById("barcode").value;
+    var ttext = text.toString();
+    let divDOM = document.getElementById("info");
+let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+svg.setAttribute('jsbarcode-format', 'auto')
+svg.setAttribute('jsbarcode-value', ttext)
+svg.className.baseVal = "barcode";
+divDOM.appendChild(svg);
+
+console.log(document.querySelector('.barcode'));
+JsBarcode(".barcode").init();
+})
+</script>
+
+
+
+// <script type="text/javascript">
+//     document.getElementById("code_gen").addEventListener('click', function(){
+//             var text = document.getElementById("barcode").value;
+//             let divDOM = document.getElementById("info");
+//             let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+//             svg.setAttribute('jsbarcode-format', 'ean13')
+//             svg.setAttribute('jsbarcode-value', "1234567891023")
+//             svg.className.baseVal = "barcode";
+//             divDOM.appendChild(svg);
+
+//             console.log(document.querySelector('.barcode'));
+//             JsBarcode(".barcode").init();
+//     });
+
+
+</script>
+</body>
+</html>
