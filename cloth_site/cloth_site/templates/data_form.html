@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>add item</title>
+	<link rel="stylesheet" href="static\style\data_form.css">
+	<link rel="stylesheet" href="static\style\style.css">
+	<script src="static\JsBarcode.all.min.js"></script>
+
+</head>
+<body>
+	
+<div class="wrapper">
+	
+	
+	<div class="title">
+		<p>اضافه قطعه</p>
+	</div>
+    <!-- form method is get  -->
+	<form class="form" method="get" >
+		<div class="input_field">
+			<label>اسم القطعه </label>
+			<input type="text" class="input" required>
+		</div>
+		<div class="input_field">
+			<label>السعر</label>
+			<!-- input type is number -->
+			<input type="number" class="input" step="0.25" required>
+		</div>
+		<!-- input type is number -->
+        <div class="input_field">
+			<label>سعر الجمله </label>
+			<input type="number" class="input" step="0.25" required>	
+		</div>
+        <div class="input_field">
+			<label>عدد القطع</label>
+			<input type="number" class="input" required>	
+		
+		<div class="btn">
+			<input type="submit"  class="add_btn" value="اضافه">
+		</div>
+	</form>
+</div>
+
+
+
+</body>
+</html>
