@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}
+</script>
+<body>
+    <script>
+        function printDiv(divName) {
+         var printContents = document.getElementById(divName).innerHTML;
+         var originalContents = document.body.innerHTML;
+    
+         document.body.innerHTML = printContents;
+    
+         window.print();
+    
+         document.body.innerHTML = originalContents;
+    }
+    </script>
+    <div id="printableArea">
+        <div class="container" >
+            <table>
+                <thead>
+                    <tr>
+                        <td>الاسبوع</td>
+                        <td>12345</td>
+                        <td>12345</td>
+                        <td>12345</td>
+                        <td>12345</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>12345</td>
+                        <td>12345</td>
+                        <td>12345</td>
+                        <td>12345</td>
+                        <td>12345</td>
+                    </tr>
+                    <tr>
+                     <td>12345</td>
+                     <td rowspan="2">12345</td>
+                     <td>12345</td>
+                     <td>12345</td>
+                     <td>12345</td>
+                 </tr>
+                 <tr>
+                     <td>12345</td>
+                     <td>12345</td>
+                     <td>12345</td>
+                     <td>12345</td>
+                     
+                 </tr>
+                 <tr>
+                     <td>12345</td>
+                     <td rowspan="2">12345</td>
+                     <td>12345</td>
+                     <td>12345</td>
+                     <td>12345</td>
+                 </tr>
+                 <tr>
+                     <td>12345</td>
+                     <td>12345</td>
+                     <td>12345</td>
+                     <td>12345</td>
+                     
+                 </tr>
+                 <tr>
+                     <td>12345</td>
+                     <td>12345</td>
+                     <td>12345</td>
+                     <td>12345</td>
+                     <td>12345</td>
+                 </tr>
+         
+                </tbody>
+            </table>
+         </div>
+        <h1>Print me</h1>
+  </div>
+  
+  <input type="button" onclick="printDiv('printableArea')" value="print a div!" />
+</body>
+</html>
