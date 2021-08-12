@@ -2,7 +2,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render , redirect
 from django.contrib import messages
 from products.Forms import  sellForm , insertProductForm
-from products.models import products , sold_products
+from products.models import products , sold_products , Profit
+from django.utils import timezone
+import datetime 
+from django.db.models import Sum
+from django.db.models.functions import TruncMonth
 
 
 
@@ -41,15 +45,38 @@ def solds(request):
             id = form.cleaned_data.get('product_id')
             print(id + "here is the id ")
             product_info = products.objects.get(product_id = id)
-            print(product_info)
-            print(type(product_info.sell_price))
+            product_info.num_of_items -= 1
+            product_info.save()
             disc = product_info.sell_price - pay
-            query = sold_products(price = pay , product_info = product_info , discounts = disc )
+            now = datetime.datetime.now()
+            query = sold_products(sold_date = now , price = pay , product_info = product_info , discounts = disc )
             query.save()
-            
+
+            calculate_profit(product_info.buy_price , pay )
+
             redirect('/')
     else:
         form = sellForm()
     return render(request, 'sell.html', {'form': form} )
+
+
+
+def calculate_profit(buy_price , pay ) :
+    profit = pay - buy_price
+    day = timezone.datetime.month
+    
+    print(day)
+
+
+
+def view_products(request):
+    all_products = products.objects.all()
+    return render (request , "view_products.html" , {"items" : all_products})
+
+def view_solds(request):
+    all_products = sold_products.objects.all()
+    return render (request , "view_solds.html" , {"items" : all_products})
+
+
 
 
