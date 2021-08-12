@@ -26,5 +26,5 @@ class sold_products(models.Model):
 
 class Profit(models.Model):
     profit = models.DecimalField(max_digits=19, decimal_places=3 , null= True , blank= True )
-    Date = models.DateTimeField(default="")
+    Date = models.CharField(default="" , max_length=10)
 

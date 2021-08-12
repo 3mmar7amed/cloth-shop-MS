@@ -63,10 +63,15 @@ def solds(request):
 
 def calculate_profit(buy_price , pay ) :
     profit = pay - buy_price
-    day = timezone.datetime.month
-    
-    print(day)
-
+    today = datetime.datetime.now()
+    month = today.month
+    try:
+        q = Profit.objects.get(Date = month)
+        q.profit += profit
+    except:
+        q = Profit(profit = profit , Date = month)
+       
+    q.save()
 
 
 def view_products(request):
