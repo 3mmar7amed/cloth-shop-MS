@@ -28,29 +28,36 @@
 		{% csrf_token %}
 		<div class="input_field" >
 			<label>كود القطعه </label>
-			<input  id = "product_id" type="text" class="input"    required>
+			<!-- SHOULD WRITE NAME = ... AS I USE IT IN THE BACKEND TO SPECIFY BETWEEN VARIABLES TO USE IT , THIS COST ME ALOT YA 55555555555555555WL -->
+			<input name = "product_id" type="text" class="input"    required> 
 		</div>
 		<div class="input_field" >
 			<label>اسم القطعه </label>
-			<input  id = "name" type="text" class="input"    required>
+			<input  name = "name" type="text" class="input"    required>
 		</div>
+		<!-- SHOULD WRITE NAME = ... AS I USE IT IN THE BACKEND TO SPECIFY BETWEEN VARIABLES TO USE IT , THIS COST ME ALOT YA 55555555555555555WL -->
+
 		<div class="input_field">
 			<label>السعر</label>
-			<!-- input type is number -->
-			<input id = "sell_price" type="number" class="input" step="0.25" required>
+			<!-- SHOULD WRITE NAME = ... AS I USE IT IN THE BACKEND TO SPECIFY BETWEEN VARIABLES TO USE IT , THIS COST ME ALOT YA 55555555555555555WL -->
+			<input name = "sell_price" type="number" class="input" step="0.25" required>
 		</div> 
-		<!-- input type is number -->
-        <div class="input_field">
+			<!-- SHOULD WRITE NAME = ... AS I USE IT IN THE BACKEND TO SPECIFY BETWEEN VARIABLES TO USE IT , THIS COST ME ALOT YA 55555555555555555WL -->
+			<div class="input_field">
 			<label>سعر الجمله </label>
-			<input id = "buy_price"  type="number" class="input" step="0.25" required>	
+			<input name = "buy_price"  type="number" class="input" step="0.25" required>	
 		</div>
         <div class="input_field">
+		     <!-- SHOULD WRITE NAME = ... AS I USE IT IN THE BACKEND TO SPECIFY BETWEEN VARIABLES TO USE IT , THIS COST ME ALOT YA 55555555555555555WL -->
+
 			<label>عدد القطع</label>
-			<input id= "num_of_items" type="number" class="input" required>	
+			<input name= "num_of_items" type="number" class="input" required>	
 		</div>
+		   <!-- SHOULD WRITE NAME = ... AS I USE IT IN THE BACKEND TO SPECIFY BETWEEN VARIABLES TO USE IT , THIS COST ME ALOT YA 55555555555555555WL -->
+
 		<div class="input_field">
 			<label>اسم المصنع </label>
-			<input id = "factory_name" type="text" class="input" required>
+			<input name = "factory_name" type="text" class="input" required>
 		</div>
 		<div class="btn">
 			<input type="submit"  class="add_btn" value="اضافه">

@@ -15,3 +15,7 @@ class insertProductForm(forms.ModelForm):
             'factory_name'
         ]
 
+class sellForm(forms.Form):
+    pay = forms.DecimalField(max_digits=19, decimal_places=10  )
+    product_id = forms.CharField( max_length=100)
+

@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+</head>
+<body>
+<p>صفحة البييييييييييييييييييييييييع</p>
+    <form method="POST" action="." >
+        {% csrf_token %}
+        {{form.product_id}}
+
+
+        <p>الراااااااااجل دفع كااااااااااااااام</p>
+        {{form.pay}}
+
+        <div class="btn">
+          <input type="submit"  class="add_btn" value="اضافه">
+        </div>
+
+      </form>
+
+
+  </body>
+</html>
