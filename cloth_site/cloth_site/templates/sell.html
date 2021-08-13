@@ -2,24 +2,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-<p>صفحة البييييييييييييييييييييييييع</p>
-    <form method="POST" action="." >
-        {% csrf_token %}
-        {{form.product_id}}
+    <form method="POST" action="." ></form>
+      <!-- the output of the mony  -->
+          <output type="number" id="firstValue" >5</output>
+          <br>
+          <!-- the amount of money from the customer  -->
+          <input type="number" id="secondValue" placeholder="المدفوع">
+          <p>الباقي : </p>
+          <!-- the remaning money for customer  -->
+          <output id="result">  </output>
+          <br>
+          <input  type="submit"  id="calc" onclick="calculation()" value="الباقي">
+    </form>
 
 
-        <p>الراااااااااجل دفع كااااااااااااااام</p>
-        {{form.pay}}
-
-        <div class="btn">
-          <input type="submit"  class="add_btn" value="اضافه">
-        </div>
-
-      </form>
 
 
-  </body>
+                <!-- 
+                  ##################################   
+                  ###javascript for  remaning cal###     
+                  ##################################
+                -->
+    <script>
+        function calculation() {
+      var firstValue = document.getElementById("firstValue").value;
+        var firstValueInt = parseInt(firstValue)
+      var secondValue = document.getElementById("secondValue").value;
+      var result = document.getElementById("result");
+      var calc =   secondValue - firstValueInt;
+      result.textContent = calc;
+    }
+    </script>
+
+</body>
 </html>
