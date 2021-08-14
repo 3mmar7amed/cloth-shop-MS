@@ -1,4 +1,5 @@
 from django.http import HttpResponseRedirect
+from django.http.response import JsonResponse
 from django.shortcuts import render , redirect
 from django.contrib import messages
 from products.Forms import  sellForm , insertProductForm
@@ -76,7 +77,13 @@ def calculate_profit(buy_price , pay ) :
 
 def view_products(request):
     all_products = products.objects.all()
-    return render (request , "view_products.html" , {"items" : all_products})
+    for row in all_products:
+        context = {
+            "name" : row.name , 
+            "price" : row.price 
+        }
+        return JsonResponse({"items " : context})
+        return render (request , "view_products.html" , {"items" : context})
 
 def view_solds(request):
     all_products = sold_products.objects.all()
