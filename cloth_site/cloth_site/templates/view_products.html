@@ -41,5 +41,31 @@
             
         </tbody>
     </table>
+
+    <script>
+
+            var url = 'http://127.0.0.1:8000/view/'
+
+            fetch(url)
+            .then((resp) => resp.json())
+            .then(function(data){
+                console.log('Data:', data)
+
+
+        $(document).ready( function () {
+            $('#table_id').DataTable({
+                'ajax':'data.json',
+                "columns": [
+                    {'data':'product_id'},
+                    {'data':'name'}
+                ]
+        
+            });
+        } );
+        
+        
+        </script>
+        
+
 </body>
 </html>

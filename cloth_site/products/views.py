@@ -85,6 +85,7 @@ def view_products(request):
     
     #return Response(JsonData.data)
     #return JsonResponse({"items " : context})
+    return Response(JsonData.data)
     return render (request , "view_products.html" , {"items" : JsonData.data})
 
 def view_solds(request):
