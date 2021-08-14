@@ -4,38 +4,44 @@
 
 
 <!-- add item  -->
-
-<form method="POST" action="." ></form>
+<div class="sell" >
+<form  method="POST"  >
+  {% csrf_token %}
 <!-- the output of the mony  -->
 <output type="number" id="firstValue" >5</output>
 <br>
 
   <!--  الخصم discount in % -->
-  <input type="number" id="Discountp" placeholder="نسبه الخصم %">
+  <input class="inp" type="number" id="Discountp" placeholder="نسبه الخصم %">
   
 
   <!--  الخصم Discount in no. -->
-  <input type="number" id="DiscountValue" placeholder="مبلغ الخصم ">
+  <input  class="inp" type="number" id="DiscountValue" placeholder="مبلغ الخصم ">
 
 
   <!-- the output of the mony after discount  -->
   <p>بعد الخصم:</p>
-  <br>
+  
   <output id="after_Discount">  </output>
-          <br>
-  <input  type="button"  id="Discount" onclick="disc()" value="خصم">
+         
+  <input   type="button"  class="but" id="Discount" onclick="disc()" value="خصم">
 
-      <br>
+     
   <!-- the amount of money from the customer  -->
-  <input type="number" id="secondValue" placeholder="المدفوع">
-  <p>الباقي : </p>
-  <!-- the remaning money for customer  -->
-  <output id="result">  </output>
+  <input class="inp" type="number" id="secondValue" placeholder="المدفوع">
+  
+<!-- the remaning money for customer  -->
+  <input    class="but" id="calc" onclick="calculation()" value="الباقي">
 
-  <br>
-  <input  type="submit"  id="calc" onclick="calculation()" value="الباقي">
+  <p>الباقي :  <output id="result">  </output> </p>
+  <output id="result"></output>
+  
+  
+
+
+  
 </form>
-
+</div>
 
 <!-- 
           ##################################   
