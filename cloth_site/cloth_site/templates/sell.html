@@ -8,12 +8,12 @@
 <form  method="POST"  >
   {% csrf_token %}
 <!-- the output of the mony  -->
-<output type="number" id="firstValue" >5</output>
 <br>
 
   <!--  الخصم discount in % -->
   <input class="inp" type="number" id="Discountp" placeholder="نسبه الخصم %">
   
+<input type="text"  name = "product_id" id="DiscountValue" placeholder="كود المنتج ">
 
   <!--  الخصم Discount in no. -->
   <input  class="inp" type="number" id="DiscountValue" placeholder="مبلغ الخصم ">
