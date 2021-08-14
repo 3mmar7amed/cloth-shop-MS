@@ -1,103 +1,84 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{%  include 'nav.html' %}
+{% block content %}
 <!-- search for item -->
 
 
 <!-- add item  -->
 
+<form method="POST" action="." ></form>
+<!-- the output of the mony  -->
+<output type="number" id="firstValue" >5</output>
+<br>
+
+  <!--  الخصم discount in % -->
+  <input type="number" id="Discountp" placeholder="نسبه الخصم %">
+  
+
+  <!--  الخصم Discount in no. -->
+  <input type="number" id="DiscountValue" placeholder="مبلغ الخصم ">
 
 
-
-
-
-
-
-
-
-
-    <form method="POST" action="." ></form>
-        <!-- the output of the mony  -->
-        <output type="number" id="firstValue" >5</output>
-        <br>
-
-          <!--  الخصم discount in % -->
-          <input type="number" id="Discountp" placeholder="نسبه الخصم %">
-          
-
-          <!--  الخصم Discount in no. -->
-          <input type="number" id="DiscountValue" placeholder="مبلغ الخصم ">
-
-
-          <!-- the output of the mony after discount  -->
-          <p>بعد الخصم:</p>
+  <!-- the output of the mony after discount  -->
+  <p>بعد الخصم:</p>
+  <br>
+  <output id="after_Discount">  </output>
           <br>
-          <output id="after_Discount">  </output>
-                  <br>
-          <input  type="button"  id="Discount" onclick="disc()" value="خصم">
+  <input  type="button"  id="Discount" onclick="disc()" value="خصم">
 
-              <br>
-          <!-- the amount of money from the customer  -->
-          <input type="number" id="secondValue" placeholder="المدفوع">
-          <p>الباقي : </p>
-          <!-- the remaning money for customer  -->
-          <output id="result">  </output>
+      <br>
+  <!-- the amount of money from the customer  -->
+  <input type="number" id="secondValue" placeholder="المدفوع">
+  <p>الباقي : </p>
+  <!-- the remaning money for customer  -->
+  <output id="result">  </output>
 
-          <br>
-          <input  type="submit"  id="calc" onclick="calculation()" value="الباقي">
-    </form>
+  <br>
+  <input  type="submit"  id="calc" onclick="calculation()" value="الباقي">
+</form>
 
 
-    <!-- 
-                  ##################################   
-                  ###javascript for discount calc###     
-                  ##################################
-                -->
+<!-- 
+          ##################################   
+          ###javascript for discount calc###     
+          ##################################
+        -->
 
-                <script>
-                  function disc() {
-                    var Discountp= document.getElementById("Discountp").value;
-                    var DiscountValue= document.getElementById("DiscountValue").value;
-                    var firstValue = document.getElementById("firstValue").value;
-                    var firstValueInt = parseInt(firstValue)
-                    
-                    var after = document.getElementById("after_Discount");
-                    if (DiscountValue>0.1){
-                    var after_Discount = firstValueInt - DiscountValue ;
-                    after.textContent =after_Discount;}else if (Discountp>1) {
-                      var Discountpp = Discountp*0.01;
-                      var after_Discount = firstValueInt-(firstValueInt * Discountpp) ;
-                    after.textContent =after_Discount;
+        <script>
+          function disc() {
+            var Discountp= document.getElementById("Discountp").value;
+            var DiscountValue= document.getElementById("DiscountValue").value;
+            var firstValue = document.getElementById("firstValue").value;
+            var firstValueInt = parseInt(firstValue)
+            
+            var after = document.getElementById("after_Discount");
+            if (DiscountValue>0.1){
+            var after_Discount = firstValueInt - DiscountValue ;
+            after.textContent =after_Discount;}else if (Discountp>1) {
+              var Discountpp = Discountp*0.01;
+              var after_Discount = firstValueInt-(firstValueInt * Discountpp) ;
+            after.textContent =after_Discount;
 
-                    }
-              }
-              </script>
+            }
+      }
+      </script>
 
 
-                <!-- 
-                  ##################################   
-                  ###javascript for remaning calc###     
-                  ##################################
-                -->
-    <script>
-        function calculation() {
+        <!-- 
+          ##################################   
+          ###javascript for remaning calc###     
+          ##################################
+        -->
+<script>
+function calculation() {
 
-          var firstValue = document.getElementById("firstValue").value;
-          var firstValueInt = parseInt(firstValue)
-          var secondValue = document.getElementById("secondValue").value;
-          var result = document.getElementById("result");
-          var calc =   secondValue - firstValueInt;
-      result.textContent = calc;
-    }
-    </script>
+  var firstValue = document.getElementById("firstValue").value;
+  var firstValueInt = parseInt(firstValue)
+  var secondValue = document.getElementById("secondValue").value;
+  var result = document.getElementById("result");
+  var calc =   secondValue - firstValueInt;
+result.textContent = calc;
+}
+</script>
 
-</body>
-</html>
+{% endblock content %}
+

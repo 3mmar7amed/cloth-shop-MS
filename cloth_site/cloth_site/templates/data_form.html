@@ -1,5 +1,7 @@
+{%  include 'nav.html' %}
 
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +9,7 @@
 	<title>add item</title>
 	<link rel="stylesheet" href="{% static '/style/data_form.css' %}"   >
 	<link rel="stylesheet" href="{% static '/style/style.css' %}">
-	<script src="static/JsBarcode.all.min.js"></script>
+	<script src="{% static '/JsBarcode.all.min.js' %} "></script>
 
 </head>
 <body>

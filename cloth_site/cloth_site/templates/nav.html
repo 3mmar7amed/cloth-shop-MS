@@ -1,35 +1,27 @@
-<head>
-	<script src="https://unpkg.com/jsbarcode@latest/dist/JsBarcode.all.min.js"></script>
-</head>
-
-
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://unpkg.com/jsbarcode@latest/dist/JsBarcode.all.min.js"></script>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static\style\style.css">
-    <link rel="stylesheet" href="static\style\nav.css">
+    <link rel="stylesheet" href="{% static '/style/style.css' %}"   >
+    <link rel="stylesheet" href="{% static '/style/nav.css' %}"   >
+
     <title>Document</title>
+    <div class="nav">
+            
+
+        <a class="active" href="{% url 'insertProduct' %}">اضافه قطعه</a>
+        <a href="#">تقارير</a>
+        <a href= "{% url 'sell' %}" >بيع</a>
+        <a href="#">باركود</a>
+      </div>
 </head>
 <body>
-    <header>
-        <div class="nav">
-            
-<!--############################################################################################################################################################-->
-<!-- note that : part of data which is rendered from the back end is in dict form 
-                 ex: to render all selling oprations , the info of each product you have to iterate over the dict items to access it 
-                    this all in views function called solds  -->
-
-<!--############################################################################################################################################################-->
-
-            <a class="active" href="#home">اضافه قطعه</a>
-            <a href="#">تقارير</a>
-            <a href="#">بيع</a>
-            <a href="#">باركود</a>
-          </div>
-    </header>
+    
 </body>
 </html>
