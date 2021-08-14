@@ -5,6 +5,8 @@ body{
 
 
 .sell{
+    
+    width: 50%;
     margin-right:10px;
     display: inline-block;
     padding: 15px;
