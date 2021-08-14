@@ -5,7 +5,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path('' , views.solds) , 
-    path('/view' , views.view_products) ,
+    path('view/' , views.view_products) ,
     path ('insertProduct/' , views.ProductInfo , name= "insertProduct"),
     path('admin/', admin.site.urls),
 

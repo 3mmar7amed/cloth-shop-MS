@@ -8,6 +8,10 @@ from django.utils import timezone
 import datetime 
 from django.db.models import Sum
 from django.db.models.functions import TruncMonth
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .jsonReturn import productsSerializer
 
 
 
@@ -74,16 +78,14 @@ def calculate_profit(buy_price , pay ) :
        
     q.save()
 
-
+@api_view(('GET',))
 def view_products(request):
     all_products = products.objects.all()
-    for row in all_products:
-        context = {
-            "name" : row.name , 
-            "price" : row.price 
-        }
-        return JsonResponse({"items " : context})
-        return render (request , "view_products.html" , {"items" : context})
+    JsonData = productsSerializer(all_products, many=True)
+    
+    #return Response(JsonData.data)
+    #return JsonResponse({"items " : context})
+    return render (request , "view_products.html" , {"items" : JsonData.data})
 
 def view_solds(request):
     all_products = sold_products.objects.all()

@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'products',
-    'cloth_site'
+    'cloth_site',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
