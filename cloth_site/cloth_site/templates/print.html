@@ -1,4 +1,6 @@
-{% extends "nav.html" %}
+{%  include 'nav.html' %}
+
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -95,6 +97,6 @@
         <h1>Print me</h1>
   </div>
   
-  <input type="button" onclick="printDiv('printableArea')" value="print a div!" />
+  <input type="button" onclick="printDiv('printableArea')" value="print " />
 </body>
 </html>
