@@ -12,8 +12,7 @@ urlpatterns = [
     path ('insertProduct/' , views.ProductInfo , name= "insertProduct"),
     path ('view_solds/' , views.view_solds , name= "view_solds"),
     path ('view_profit/' , views.view_profit , name= "view_profit"),
-    path ('view_priceandname/' , views.view_PriceAndName , name= "view_priceandname"),
-
+    path('view_currrent_product' , views.view_current_products , name ="view_currrent_product" ),
     path('admin/', admin.site.urls),
     path('api/' , views.api_overview , name = 'api')
 

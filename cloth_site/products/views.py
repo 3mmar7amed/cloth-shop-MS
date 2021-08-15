@@ -122,7 +122,8 @@ def view_products(request):
     JsonData = productsSerializer(all_products, many=True)
     return Response(JsonData.data)
 
-
+def view_current_products(request):
+    return render (request , "view_products.html")
 
 
 @api_view(('GET',))
