@@ -121,7 +121,7 @@
 
 	</div> -->
 
-        <table>
+        <!-- <table>
             <thead>
                 <tr>
                     <th> البار كود</th>
@@ -155,7 +155,7 @@
               for (var i in list ){
                 var item = `
 						
-							<tr id="data-row-${i}" >
+							<tr  id="data-row-${i}" >
                             <th >${list[i].product_id}</th>
 							<th >${list[i].name}</th>
                             <th >${list[i].sell_price}</th>
@@ -167,7 +167,7 @@
 							
 							
 								
-							
+
 					`
 					wrapper.innerHTML += item
 	
@@ -177,7 +177,53 @@
             })
 
             }
-    </script>
+    </script> -->
+
+<table id="example" class="example">
+<thead>
+    <tr>
+        <th> البار كود</th>
+         <th>اسم القطعه</th>
+        <th>سعر البيع</th>
+        <th>سعر الشراء</th>
+        <th>العدد</th>
+        <th>اسم المصنع</th>
+    </tr>
+</thead>
+
+<tbody>
+    
+</tbody>
+</table>
+
+<script>
+          view_ddata();
+            function view_ddata(){
+                var wrapper = document.getElementById('list-wrapper')
+                var url = 'http://127.0.0.1:8000/view/'
+            fetch(url)
+            .then((resp) => resp.json())
+            .then(function(data){
+                console.log('Data:', data)
+             var list = data 
+             $('#example').DataTable( {
+    data: data,
+    columns: [
+        { data: 'product_id' },
+        { data: 'name' },
+        { data: 'sell_price' },
+        { data: 'buy_price' },
+        { data: 'num_of_items' },
+        { data: 'factory_name' }
+    ]
+} );
+
+            })
+
+            }
+
+
+</script>
 
 </body>
 </html>
