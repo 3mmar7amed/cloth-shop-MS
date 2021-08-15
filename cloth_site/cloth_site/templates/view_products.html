@@ -154,8 +154,8 @@
              var list = data 
               for (var i in list ){
                 var item = `
-						<div id="data-row-${i}" class="task-wrapper flex-wrapper">
-							<tr >
+						
+							<tr id="data-row-${i}" >
                             <th >${list[i].product_id}</th>
 							<th >${list[i].name}</th>
                             <th >${list[i].sell_price}</th>
@@ -168,7 +168,6 @@
 							
 								
 							
-						</div>
 					`
 					wrapper.innerHTML += item
 	
