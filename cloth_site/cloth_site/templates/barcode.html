@@ -15,12 +15,25 @@
 <body>
     <input type="text" name="barcode" id="barcode">
     <button id="code_gen">كود</button>
+    <div id="hello">
     <svg id="barcode"></svg>
-
-
+    </div>
+    <input type="button" value="Click Me" onclick="codespeedy()">
     <div id="info">
     </div>
-
+    <script type="text/javascript">
+        
+        function codespeedy(){
+          var print_div = document.getElementById("info");
+    var print_area = window.open();
+    print_area.document.write(print_div.innerHTML);
+    print_area.document.close();
+    print_area.focus();
+    print_area.print();
+    print_area.close();
+    // This is the code print a particular div element
+        }
+      </script>
 <script type="text/javascript" >
 document.getElementById("code_gen").addEventListener('click', function(){
     var text = document.getElementById("barcode").value;
@@ -51,7 +64,7 @@ JsBarcode(".barcode").init();
 
 //             console.log(document.querySelector('.barcode'));
 //             JsBarcode(".barcode").init();
-//     });
+//     });z
 
 
 </script>
