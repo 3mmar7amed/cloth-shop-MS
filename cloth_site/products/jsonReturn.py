@@ -10,7 +10,7 @@ class productsSerializer(serializers.ModelSerializer):
 class SOLD_product_Serializer(serializers.ModelSerializer):
     class Meta:
         model = products
-        fields = ('name' , 'price')
+        fields = ('name' , 'sell_price')
 
 class viewSolds_serializer(serializers.ModelSerializer):
     class Meta:

@@ -57,16 +57,15 @@ def api_overview(request):
 
     return Response(api_url)
 
-@api_view(('GET','POST'))
 def solds(request ):
-    
+ 
     if request.method == 'POST':
 
         form = sellForm(request.POST)
         if form.is_valid():
             pay = form.cleaned_data.get('pay')
-            id = form.cleaned_data.get('product_id')
-            print(id + "here is the id ")
+            id = form.cleaned_data.get('id')
+            print(id)
             product_info = products.objects.get(product_id = id)
             product_info.num_of_items -= 1
             product_info.save()
@@ -87,9 +86,18 @@ def solds(request ):
             
     else:
         form = sellForm()
-        
-    return render(request, 'sell.html', {'form': form} )
+    return render(request, 'sell2.html', {'form': form} )
 
+
+@api_view(('GET','POST'))
+def soldsAPI(request) :
+    if request.method == 'POST':
+        solds(request)
+
+    else :
+        all_solds = sold_products.objects.all()
+        ser = viewSolds_serializer(all_solds , many=True)
+        return Response(ser.data)
 
 
 def calculate_profit(buy_price , pay ) :
@@ -97,6 +105,7 @@ def calculate_profit(buy_price , pay ) :
     today = datetime.datetime.now()
     month = today.month
     year = today.year
+##############E#######W## wait until el5awal make submit button ####################################################################################
     str = month +"-"+year
     print (str)
     try:
@@ -128,6 +137,13 @@ def view_profit(request):
     all_products = Profit.objects.all()
     JsonData = viewProfit_serializer(all_products, many=True)
     return Response(JsonData.data)
+
+@api_view(('GET',))
+def view_PriceAndName(request):
+    all_products = products.objects.all()
+    JsonData = SOLD_product_Serializer(all_products, many=True)
+    return Response(JsonData.data)
+
 
 
 
