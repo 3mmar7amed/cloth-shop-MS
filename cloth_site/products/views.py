@@ -125,6 +125,8 @@ def view_products(request):
 def view_current_products(request):
     return render (request , "view_products.html")
 
+def view_solds_page(request):
+    return render(request , "view_solds.html")
 
 @api_view(('GET',))
 def view_solds(request):
