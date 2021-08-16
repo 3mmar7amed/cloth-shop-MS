@@ -13,14 +13,20 @@
 
 </head>
 <body>
-    <input type="text" name="barcode" id="barcode">
-    <button id="code_gen">كود</button>
-    <div id="hello">
-    <svg id="barcode"></svg>
+
+<div class="bar-cont" >
+    <input class="bar-input" type="text" name="barcode" id="barcode">
+    <button class="bar-btn" id="code_gen">كود</button>
+    <div style="display: inline;" id="hello">
+    <svg style="display: none;" id="barcode"></svg>
     </div>
-    <input type="button" value="Click Me" onclick="codespeedy()">
+    <input class="bar-btn" type="button" value="اطبع" onclick="codespeedy()">
     <div id="info">
     </div>
+</div>
+
+
+
     <script type="text/javascript">
         
         function codespeedy(){

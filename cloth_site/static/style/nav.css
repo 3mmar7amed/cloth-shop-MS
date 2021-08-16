@@ -22,7 +22,7 @@
     color: black;
   }
 
-  .nav a.active {
+.active {
     background-color: #255ea8;
     color: white;
   }
