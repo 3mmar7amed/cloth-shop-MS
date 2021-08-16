@@ -1,5 +1,4 @@
 {%  include 'nav.html' %}
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -9,6 +8,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static '/style/style.css' %}">
+    <link rel="stylesheet" href="{% static '/style/data_form.css' %}"   >
+     <script src="{% static 'jquery-3.6.0.min.js' %} "></script>
+     <link rel="stylesheet" type="text/css" href="{% static '/DataTables/datatables.min.css' %}">
+ 
+<script type="text/javascript" src="{% static '/DataTables/datatables.min.js' %}"></script>
+
+<script src="{% static 'data.js' %}" ></script>
+
+<style>
+    table{
+        margin: top 20%;
+        width: 80%;
+        margin-right: 10%;
+        border:2px solid black ;
+    }
+    thead{
+        color: white;
+        background-color: rgb(37, 35, 35);
+    }
+    tr{
+        border:2px solid black;
+    }
+</style>
 </head>
 <script>
     function printDiv(divName) {
@@ -23,80 +46,53 @@
 }
 </script>
 <body>
-    <script>
-        function printDiv(divName) {
-         var printContents = document.getElementById(divName).innerHTML;
-         var originalContents = document.body.innerHTML;
-    
-         document.body.innerHTML = printContents;
-    
-         window.print();
-    
-         document.body.innerHTML = originalContents;
-    }
-    </script>
     <div id="printableArea">
         <div class="container" >
-            <table>
+            <table id="example" class="example">
                 <thead>
                     <tr>
-                        <td>الاسبوع</td>
-                        <td>12345</td>
-                        <td>12345</td>
-                        <td>12345</td>
-                        <td>12345</td>
+                        <th> التاريخ</th>
+                         <th>المكسب</th>
+
+                
                     </tr>
                 </thead>
+                
                 <tbody>
-                    <tr>
-                        <td>12345</td>
-                        <td>12345</td>
-                        <td>12345</td>
-                        <td>12345</td>
-                        <td>12345</td>
-                    </tr>
-                    <tr>
-                     <td>12345</td>
-                     <td rowspan="2">12345</td>
-                     <td>12345</td>
-                     <td>12345</td>
-                     <td>12345</td>
-                 </tr>
-                 <tr>
-                     <td>12345</td>
-                     <td>12345</td>
-                     <td>12345</td>
-                     <td>12345</td>
-                     
-                 </tr>
-                 <tr>
-                     <td>12345</td>
-                     <td rowspan="2">12345</td>
-                     <td>12345</td>
-                     <td>12345</td>
-                     <td>12345</td>
-                 </tr>
-                 <tr>
-                     <td>12345</td>
-                     <td>12345</td>
-                     <td>12345</td>
-                     <td>12345</td>
-                     
-                 </tr>
-                 <tr>
-                     <td>12345</td>
-                     <td>12345</td>
-                     <td>12345</td>
-                     <td>12345</td>
-                     <td>12345</td>
-                 </tr>
-         
+                    
                 </tbody>
-            </table>
+                </table>
+                
          </div>
-        <h1>Print me</h1>
   </div>
   
+
+
+  <script>
+    view_ddata();
+      function view_ddata(){
+          var wrapper = document.getElementById('list-wrapper')
+          var url = 'http://127.0.0.1:8000/api/view_profit/'
+      fetch(url)
+      .then((resp) => resp.json())
+      .then(function(data){
+          console.log('Data:', data)
+       var list = data 
+       $('#example').DataTable( {
+data: data,
+columns: [
+  { data: "Date" },
+  { data:"profit" }
+
+]
+} );
+
+      })
+
+      }
+
+
+</script>
   <input type="button" onclick="printDiv('printableArea')" value="print " />
 </body>
 </html>
