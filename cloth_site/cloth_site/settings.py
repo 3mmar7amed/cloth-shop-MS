@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'products',
     'cloth_site',
-    'rest_framework'
+    'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [

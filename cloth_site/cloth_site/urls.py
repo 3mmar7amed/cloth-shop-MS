@@ -23,5 +23,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     
-    path("", include("products.urls"))
+    path("", include("products.urls")),
+    path ("api/" , include("api.urls"))
 ]

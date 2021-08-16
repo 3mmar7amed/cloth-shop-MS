@@ -15,7 +15,7 @@ from rest_framework import serializers, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from socket import socket
-from .jsonReturn import productsSerializer , SOLD_product_Serializer , viewSolds_serializer, viewProfit_serializer
+from api.serializers import productsSerializer , SOLD_product_Serializer , viewSolds_serializer, viewProfit_serializer
 
 
 
@@ -46,58 +46,42 @@ def ProductInfo(request):
 
 
 
-@api_view(('GET',))
-def api_overview(request):
 
-    api_url = {
-        "sell" : '/sell/<str:pk>' ,
-        "view_products": '/view/' ,
-        'view_solds' : '/view_solds',
-    }
 
-    return Response(api_url)
-
-def solds(request ):
+def solds(request):
  
     if request.method == 'POST':
-
-        form = sellForm(request.POST)
-        if form.is_valid():
-            pay = form.cleaned_data.get('pay')
-            id = form.cleaned_data.get('id')
-            print(id)
-            product_info = products.objects.get(product_id = id)
-            product_info.num_of_items -= 1
-            product_info.save()
-            disc = product_info.sell_price - pay
-            now = datetime.datetime.now()
-            data = {
-                "sold_date" : now , 
-                "price" : pay , 
-                "prodcut_info" : product_info,
-                "discounts" : disc
-            }
-            serializer =viewSolds_serializer(data = data)
-            serializer.save() 
+        id = request.data.get('product_id')
+        disc = request.data.get('discounts')
+        pay = request.data.get('pay')
+        print(type(request.data))
+        product_info = products.objects.get(product_id = id)
+        product_info.num_of_items -= 1
+        product_info.save()
+        
+        
+        try:
+            price_after_discount = (product_info.sell_price) - int(disc)
+        except:  price_after_discount = (product_info.sell_price) 
+        
             
+        data = {
+                "product_id" : id ,
+                "name" : product_info.name , 
+                "sell_price" : product_info.sell_price , 
+                "discounts" : disc ,
+                "price" : price_after_discount,
 
-            calculate_profit(product_info.buy_price , pay )
-            return Response(serializer.data)
+            }
+        
+        #calculate_profit(product_info.buy_price , what_he_paid )
+        return (data)     
             
     else:
         form = sellForm()
     return render(request, 'sell2.html', {'form': form} )
 
 
-@api_view(('GET','POST'))
-def soldsAPI(request) :
-    if request.method == 'POST':
-        solds(request)
-
-    else :
-        all_solds = sold_products.objects.all()
-        ser = viewSolds_serializer(all_solds , many=True)
-        return Response(ser.data)
 
 
 def calculate_profit(buy_price , pay ) :
@@ -106,21 +90,16 @@ def calculate_profit(buy_price , pay ) :
     month = today.month
     year = today.year
 ##############E#######W## wait until el5awal make submit button ####################################################################################
-    str = month +"-"+year
-    print (str)
+    date = month +"-"+year
+    print (date)
     try:
-        q = Profit.objects.get(Date = str)
+        q = Profit.objects.get(Date = date)
         q.profit += profit
     except:
-        q = Profit(profit = profit , Date = str)
+        q = Profit(profit = profit , Date = date)
        
     q.save()
 
-@api_view(('GET',))
-def view_products(request):
-    all_products = products.objects.all()
-    JsonData = productsSerializer(all_products, many=True)
-    return Response(JsonData.data)
 
 def view_current_products(request):
     return render (request , "view_products.html")
@@ -128,24 +107,7 @@ def view_current_products(request):
 def view_solds_page(request):
     return render(request , "view_solds.html")
 
-@api_view(('GET',))
-def view_solds(request):
-    all_products = sold_products.objects.all( )
-    JsonData = viewSolds_serializer(all_products, many=True)
-    return Response(JsonData.data)
 
-
-@api_view(('GET',))
-def view_profit(request):
-    all_products = Profit.objects.all()
-    JsonData = viewProfit_serializer(all_products, many=True)
-    return Response(JsonData.data)
-
-@api_view(('GET',))
-def view_PriceAndName(request):
-    all_products = products.objects.all()
-    JsonData = SOLD_product_Serializer(all_products, many=True)
-    return Response(JsonData.data)
 
 
 

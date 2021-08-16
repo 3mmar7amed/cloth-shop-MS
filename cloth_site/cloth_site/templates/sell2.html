@@ -68,14 +68,20 @@
 
 </head>
 <body>
+	
 	<div class="container">
 
 		<div id="task-container">
 			<div id="form-wrapper">
 				<form id="form">
 					<div class="flex-wrapper">
+						<div id="wrapper2">
+
+						</div>
 						<div style="flex: 6">
-							<input id="id" class="form-control" type="text" name="id" placeholder="Add task">
+							<input id="title" class="form-control" type="number" name="title" placeholder="الكود">
+							<input id="pay" class="form-control" type="number" name="pay" placeholder="المدفوع">
+							<input id="discounts" class="form-control" type="number" name="discounts" placeholder="المخصـــوم">
 						</div>
 						<div style="flex: 1">
 							<input id="submit" class="btn" type="submit" >
@@ -83,10 +89,12 @@
 					</div>
 				</form>
 			</div>
+			
 
 			<div id="list-wrapper">
 			
-			</div>	
+			</div>
+				
 		</div>
 
 	</div>
@@ -129,16 +137,26 @@
 
 		var activeItem = null
 		var list_snapshot = []
-
+		var  overall_price_before_disc  = 0  
 		buildList()
+		calculate()
 
+		function calculate(){
+
+			
+
+		}
+		
 		function buildList(){
 			var wrapper = document.getElementById('list-wrapper')
-			//wrapper.innerHTML = ''
+			wrapper.innerHTML = ''
+			var wrapper2 = document.getElementById('wrapper2')
+			wrapper2.innerHTML = ''
+			
 
 
 
-			var url = 'http://127.0.0.1:8000/view_priceandname/'
+			var url = 'http://127.0.0.1:8000/api/view_sold_product/'
 
 			fetch(url)
 			.then((resp) => resp.json())
@@ -146,8 +164,27 @@
 				console.log('Data:', data)
 
 				var list = data
-				for (var i in list){
+				var count = 0 
+				var sell_price = (list[0].sell_price) 
+				
+				if (overall_price_before_disc > 0 ){
+					overall_price_before_disc = parseFloat(overall_price_before_disc) + parseFloat(sell_price) 
+				}
+				else {
+					overall_price_before_disc = parseFloat(sell_price)
+				}
 
+				console.log(overall_price_before_disc)
+				
+				discounts = document.getElementById('discounts').value
+				what_should_client_pay = sell_price - discounts
+				the_rest_of_money = what_should_client_pay - document.getElementById('pay').value
+				
+				  
+				
+				for (var i in list){
+					
+					
 					var item = `
 						<div id="data-row-${i}" class="task-wrapper flex-wrapper">
 							<div style="flex:7">
@@ -156,17 +193,22 @@
                                         <tr>
                                         <th scope="col">الاسم</th>
                                         <th scope="col">السعر</th>
+										<th scope="col">المطلوب بعد الخصم</th>
+										<th scope="col">الباقي </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                         <td>${list[i].name}</td>
                                         <td>${list[i].sell_price}</td>
+										<td>${list[i].price}</td>
+										
                                         </tr>
                                     </tbody>
                                 </table>
 								
 							</div>
+							
 							<div style="flex:1">
 								<button class="btn btn-sm btn-outline-info edit">Edit </button>
 							</div>
@@ -178,22 +220,49 @@
 					wrapper.innerHTML += item
 	
 				}
+				var item2 = `
+				<div style = "flex:7" > 
+								<table class="table table-striped">
+                                    <thead>
+                                        <tr>
+											<th scope="col">المبلغ الكلي  </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                        <td>${overall_price_before_disc}</td>
+                                        
+                                        </tr>
+                                    </tbody>
+                                </table>
+							</div>
+				
+				`	
+				wrapper.innerHTML += item2
+					
 			})
 		}
         var form = document.getElementById('form-wrapper')
 		form.addEventListener('submit', function(e){
 			e.preventDefault()
 			console.log('Form submitted')
-			var url = 'http://127.0.0.1:8000/soladsAPI/'
-            var id = document.getElementById('id').value
-            console.log(id)
+			var url = 'http://127.0.0.1:8000/api/create_sold_product/'
+
+            var product_id = document.getElementById('title').value
+			var disc = document.getElementById('discounts').value
+            console.log(product_id)
+			console.log(disc)
             
             fetch(url , {
                 method: 'POST' ,
                 headers: { 'Content-Type': 'application/json' ,
-                            'X-CRFToken' : csrftoken ,
+							'X-CSRFToken':csrftoken,
                          },
-                         body:JSON.stringify({'id' : id})
+                         body:JSON.stringify({
+							'discounts' : disc ,
+							'product_id' : product_id ,
+							   
+							}),
                         
                         }  ).then(function(response){
                             buildList()
@@ -206,6 +275,6 @@
         
 
 	</script>
-
+	
 </body>
 </html>
