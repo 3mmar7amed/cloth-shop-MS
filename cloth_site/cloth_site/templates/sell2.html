@@ -147,7 +147,7 @@
 		var activeItem = null
 		var list_snapshot = []
 		var  overall_price_before_disc  = 0 
-		var changes = 0  
+	
 		buildList()
 		
 		function calculate(){
@@ -171,13 +171,11 @@
 			console.log(overall_price_before_disc)
 			
 			var price_after_discount = parseFloat(overall_price_before_disc) - parseFloat(discounts)
-			if (discounts = ''){
-				changes = 0 
-			}
-			else {
-				changes =  parseFloat(pay) - parseFloat(price_after_discount) 
-			    console.log(changes)
-			}
+			
+			 
+			var changes =  parseFloat(pay) - parseFloat(price_after_discount) 
+			console.log(changes)
+			
 			
 			
 			
