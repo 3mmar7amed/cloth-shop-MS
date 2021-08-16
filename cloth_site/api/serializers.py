@@ -42,3 +42,5 @@ class viewProfit_serializer(serializers.ModelSerializer):
     class Meta:
         model = Profit
         fields = '__all__'
+
+

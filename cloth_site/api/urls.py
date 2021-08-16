@@ -10,7 +10,8 @@ urlpatterns = [
     path('task-list/', views.viewTasks, name="task-list"),
     path('sold_products_Api/', views.sold_products_Api, name="sold_products_Api"),
     path('create_sold_product/' , views.create_sold_product , name ="create_sold_product" ),
-        path('view_sold_product/' , views.view_solds , name ="view_sold_product" ),
+    path('view_sold_product/' , views.view_solds , name ="view_sold_product" ),
+    path('view_profit/' , views.view_profit , name ="view_profit" ),
 
     path('view/' , views.view_products , name = "view") ,
 ]

@@ -5,8 +5,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from socket import socket
 from django.http import JsonResponse
-from api.serializers import TaskSerializer , viewSolds_serializer , SOLD_product_Serializer , createSolds_serializer , productsSerializer
-from products.models import sold_products , products , Task
+from api.serializers import TaskSerializer , viewSolds_serializer , SOLD_product_Serializer , createSolds_serializer , productsSerializer , viewProfit_serializer
+from products.models import sold_products , products , Task , Profit
 from products.views import solds
 
 
@@ -73,4 +73,11 @@ def view_solds(request):
 def view_products(request):
     all_products = products.objects.all()
     JsonData = productsSerializer(all_products, many=True)
+    return Response(JsonData.data)
+
+
+@api_view(('GET',))
+def view_profit(request):
+    all_products = Profit.objects.all()
+    JsonData = viewProfit_serializer(all_products, many=True)
     return Response(JsonData.data)
