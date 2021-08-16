@@ -1,10 +1,9 @@
 from django.contrib import admin
 from api import  views
-from django.urls import include, path
+from django.urls import  path
 
 
 urlpatterns = [
-    path('' , views.apiOverview  ) ,
     
     path('task-create/', views.taskCreate, name="task-create"),
     path('task-list/', views.viewTasks, name="task-list"),
@@ -12,6 +11,7 @@ urlpatterns = [
     path('create_sold_product/' , views.create_sold_product , name ="create_sold_product" ),
     path('view_sold_product/' , views.view_solds , name ="view_sold_product" ),
     path('view_profit/' , views.view_profit , name ="view_profit" ),
+    path('reduce_profit_by_discount/' , views.reduce_profit_by_discount , name ="reduce_profit_by_discount" ),
 
     path('view/' , views.view_products , name = "view") ,
 ]

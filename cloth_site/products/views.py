@@ -23,7 +23,6 @@ def ProductInfo(request):
 
     if request.method == 'POST':
         try:
-            print("pooooooooooooooooooooost")
             id = request.POST.get('product_id')
             name = request.POST.get('name')
             sell_price = request.POST.get('sell_price')
