@@ -88,6 +88,10 @@
 						<div style="flex: 1">
 							<input id="submit" class="btn" onclick="calculate()" type="submit" >
 						</div>
+						
+					</div>
+					<div id="top">
+			
 					</div>
 				</form>
 			</div>
@@ -105,12 +109,12 @@
 							<input id="submit" class="btn" type="submit" >
 						</div>
 					</div>
+					
 				</form>
-			</div>
-
-			<div id="top">
+				
 			
 			</div>
+
 			
 
 			<div id="list-wrapper">
@@ -164,10 +168,10 @@
 			هي عايز اعرض البااااااااااااقي و السعر كله 
 			فاعرضهملي مع "المدفووووووووووووووووووع و المخصوووووووووووووووووووم " الله يسترك 
 		*/
-			var wrapper = document.getElementById('top')
+			var wrapper = document.getElementById('top');
 			wrapper.innerHTML = ''
-			var pay = document.getElementById('pay')
-			var discounts = document.getElementById('discounts')
+			var pay = document.getElementById('pay').value;
+			var discounts = document.getElementById('discounts').value;
 			console.log(overall_price_before_disc)
 			
 			var price_after_discount = parseFloat(overall_price_before_disc) - parseFloat(discounts)

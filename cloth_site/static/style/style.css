@@ -8,6 +8,10 @@
 	font-family: 'Open Sans', sans-serif;
 }
 
+
+/*  */
+
+
 body{
 	background: linear-gradient(90deg, rgb(170, 212, 212) 0%, rgb(159, 255, 236) 43%, rgb(248, 248, 248) 100%);
 	/* background-image: url("..\Users\el_ksass\my-hub\cloth-shop-MS\cloth_site\static\img\logo.jpeg"); */
@@ -17,6 +21,8 @@ body{
 	/* background-color: #f9f9f9; */
 	
 }
+
+
 
 .glob-w{
 	margin-top: 5%;
