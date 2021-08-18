@@ -10,7 +10,7 @@
 
   img{
     display: inline;
-    height: 60px;
+    height: 65px;
   }
   .nav a {
     background-color: #255ea8;
@@ -22,8 +22,8 @@
     text-decoration: none;
     font-size: 25px;
     font-weight: 400;
-    width: calc( 100% / 8 );
-    height: 60px;
+    width: calc( 100% / 10 );
+    height: 65px;
   }
  
   .logo-img{
@@ -34,8 +34,8 @@
     text-align:center;
     text-decoration: none;
     font-size: 30px;
-    width: calc( 100% / 8 );
-    height: 60px;
+    width: calc( 100% / 10 );
+    height: 65px;
   
   }
 .logo{
@@ -49,8 +49,8 @@
   text-decoration: none;
   font-size: 30px;
 
-  width: calc( 100% / 8 );
-  height: 60px;
+  width: calc( 100% / 10 );
+  height: 65px;
 
 }
   .nav a:hover {
