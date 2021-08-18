@@ -33,6 +33,16 @@
     }
 </style>
 </head>
+
+
+
+
+
+
+
+
+
+
 <script>
     function printDiv(divName) {
      var printContents = document.getElementById(divName).innerHTML;
@@ -76,7 +86,7 @@
       fetch(url)
       .then((resp) => resp.json())
       .then(function(data){
-          console.log('Data:', data)
+        //   console.log('Data:', data)
        var list = data 
        $('#example').DataTable( {
 data: data,

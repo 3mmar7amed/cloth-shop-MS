@@ -81,6 +81,11 @@
 
 </style> -->
 <style>
+   
+		body{
+		  background: rgb(54,217,182);
+		  background: linear-gradient(90deg, rgba(54,217,182,1) 0%, rgba(32,152,126,1) 43%, rgba(0,212,255,1) 100%);
+		}
     table{
         margin-top: 5%;
         width: 80%;
@@ -200,6 +205,41 @@
 
             }
     </script> -->
+
+
+<!-- ###################################   
+#######important script to find item ###
+#######from the json by product-id and##
+ returnthe full opject #################    
+########################################     -->
+
+<script>
+    view_data();
+      function view_data(){
+          var wrapper = document.getElementById('list-wrapper')
+          var url = 'http://127.0.0.1:8000/api/view/'
+
+      fetch(url)
+      .then((resp) => resp.json())
+      .then(function(data){
+          console.log('no data1')
+          console.log('Data:', data)
+       var list = data 
+        for (var i in list ){
+            
+            if (list[i].product_id= "123456"){
+                console.log('no data3')
+         var index =list[i];
+         console.log(index);}
+
+
+          }
+        
+      
+      })
+
+      }
+</script> 
 
 <script>
           view_ddata();
