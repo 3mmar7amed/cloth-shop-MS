@@ -11,6 +11,7 @@ urlpatterns = [
     path ('view_solds_page/' , views.view_solds_page , name= "view_solds_page"),
     path ('returns_products_page/' , views.Return_product , name= "returns_products_page"),
     path('view_currrent_product' , views.view_current_products , name ="view_currrent_product" ),
+    path('delete_product/' , views.delete_product , name = "delete_product") , 
     path('admin/', admin.site.urls),
     
 

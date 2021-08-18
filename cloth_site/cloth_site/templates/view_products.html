@@ -251,6 +251,7 @@
             .then(function(data){
                 console.log('Data:', data)
              var list = data 
+             
              $('#example').DataTable( {
     data: data,
     columns: [
@@ -259,13 +260,18 @@
         { data: 'sell_price' },
         { data: 'buy_price' },
         { data: 'num_of_items' },
-        { data: 'factory_name' }
+        { data: 'factory_name' } , 
+        
+
     ]
 } );
 
             })
 
             }
+
+
+
 
 
 </script>

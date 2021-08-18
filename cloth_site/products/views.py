@@ -104,7 +104,7 @@ def calculate_profit(buy_price , pay ) :
     q.save()
 
 def returns(id , discount):
-        
+
         if(discount == ''):
             discount = 0 
         product_info = products.objects.get(product_id = id)
@@ -124,6 +124,10 @@ def view_current_products(request):
 def view_solds_page(request):
     return render(request , "view_solds.html")
 
+
+def delete_product(request):
+
+    return render (request , "delete.html" )
 
 def barcode(request):
     return render (request , "barcode.html" )

@@ -90,3 +90,16 @@ def returns_products(request):
         JsonData = returns_serializer(all_products, many=True)
         return Response(JsonData.data)
     
+
+
+@api_view(['DELETE'])
+def productDelete(request, pk):
+    print(type(pk))
+    PK = str(pk)
+    try:
+        task = products.objects.get(product_id=PK)
+        task.delete()
+    except:
+        return Response('Item wasnot deleted!')
+
+    return Response('Item succsesfully delete!')

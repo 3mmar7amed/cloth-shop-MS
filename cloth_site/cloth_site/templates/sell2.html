@@ -85,8 +85,8 @@
 					<div class="flex-wrapper">
 						
 						<div style="flex: 6">
-							<input id="pay" class="form-control" type="number" name="pay" placeholder="المدفوع">
-							<input id="discounts" class="form-control" type="number" name="discounts" placeholder="المخصـــوم">
+							<input id="pay" class="form-control" type="number" name="pay" placeholder="المدفوع" step="0.01" >
+							<input id="discounts" class="form-control" type="number" name="discounts" placeholder="المخصـــوم" step="0.01" >
 							<output id="changes" name="changes" for="pay discounts "></output>
 						</div>
 
@@ -347,7 +347,7 @@
                             document.getElementById('form').reset()
 
                         })
-                    })
+                    })			
             
 	</script>
 	
