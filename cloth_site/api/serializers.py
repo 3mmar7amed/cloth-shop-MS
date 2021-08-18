@@ -1,18 +1,8 @@
 from rest_framework import serializers
-from products.models import products , sold_products  , Profit
+from products.models import products , sold_products  , Profit , Returns_products
 
 from rest_framework import serializers
 from products.models import Task
-
-
-
-class TaskSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Task
-		fields ='__all__'
-
-
-
 
 
 class productsSerializer(serializers.ModelSerializer):
@@ -46,5 +36,15 @@ class viewProfit_serializer(serializers.ModelSerializer):
 class addToProfit_serializer(serializers.ModelSerializer):
     class Meta:
         model = Profit
+        fields = '__all__'
+
+class viewDailySolds_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = sold_products
+        fields = '__all__'
+
+class returns_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Returns_products
         fields = '__all__'
 

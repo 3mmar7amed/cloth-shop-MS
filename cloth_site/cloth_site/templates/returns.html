@@ -18,7 +18,7 @@
 	
 	
 	<div class="title">
-		<p>اضافه قطعه</p>
+		<p> المرتجع </p>
 	</div>
 	<div>
 		{%for message in messages%}
@@ -32,29 +32,12 @@
 			<label>كود القطعه </label>
 			<input name = "product_id" type="text" class="input"    required> 
 		</div>
-		<div class="input_field" >
-			<label>اسم القطعه </label>
-			<input  name = "name" type="text" class="input"    >
-		</div>
 
-		<div class="input_field">
-			<label>السعر</label>
-			<input name = "sell_price" type="number" class="input" step="0.25" >
-		</div> 
-			<div class="input_field">
-			<label>سعر الجمله </label>
-			<input name = "buy_price"  type="number" class="input" step="0.25" >	
+        <div class="input_field" >
+			<label> المخصـــوم </label>
+			<input name = "discounts" type="number" class="input"    > 
 		</div>
-        <div class="input_field">
-
-			<label>عدد القطع</label>
-			<input name= "num_of_items" type="number" class="input" required>	
-		</div>
-
-		<div class="input_field">
-			<label>اسم المصنع </label>
-			<input name = "factory_name" type="text" class="input" >
-		</div>
+		
 		<div class="btn">
 			<input type="submit"  class="add_btn" value="اضافه">
 		</div>

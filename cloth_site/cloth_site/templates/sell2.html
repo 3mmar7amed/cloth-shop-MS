@@ -1,3 +1,5 @@
+{%  include 'nav.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +8,8 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+
 
 	<style type="text/css">
 		body{
@@ -88,6 +92,10 @@
 						<div style="flex: 1">
 							<input id="submit" class="btn" onclick="calculate()" type="submit" >
 						</div>
+						
+					</div>
+					<div id="top">
+			
 					</div>
 				</form>
 			</div>
@@ -105,12 +113,12 @@
 							<input id="submit" class="btn" type="submit" >
 						</div>
 					</div>
+					
 				</form>
-			</div>
-
-			<div id="top">
+				
 			
 			</div>
+
 			
 
 			<div id="list-wrapper">
@@ -147,27 +155,19 @@
 		var activeItem = null
 		var list_snapshot = []
 		var  overall_price_before_disc  = 0 
-	
+		var countNow = false
 		buildList()
 		
 		function calculate(){
-			/*
-			أول مهمــــــــــــــــــــــــــــــــةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةةة
-			هنا الحاجة الي ناقصة انا أحسب الباقي بتاع الراجل الي بيشتري 
-			لما بطلع القيمة للكونسول بيطلعلي NAN 
-			لو تععرف تعمممممممملها أرجوووووووووووووووووووووووووووووك
-
-
-		
-			تـــــــــــــــــــــــــــــــــــــــــــــــــــــاني مهمة 
-
-			هي عايز اعرض البااااااااااااقي و السعر كله 
-			فاعرضهملي مع "المدفووووووووووووووووووع و المخصوووووووووووووووووووم " الله يسترك 
-		*/
-			var wrapper = document.getElementById('top')
+			
+			var wrapper = document.getElementById('top');
 			wrapper.innerHTML = ''
-			var pay = document.getElementById('pay')
-			var discounts = document.getElementById('discounts')
+			var pay = document.getElementById('pay').value;
+			var discounts = document.getElementById('discounts').value;
+			if(discounts === ''){
+				discounts = 0 
+			}
+
 			console.log(overall_price_before_disc)
 			
 			var price_after_discount = parseFloat(overall_price_before_disc) - parseFloat(discounts)
@@ -226,7 +226,7 @@
 
 
 
-			var url = 'http://127.0.0.1:8000/api/view_sold_product/'
+			var url = 'http://127.0.0.1:8000/api/view_daily_solds/'
 
 			fetch(url)
 			.then((resp) => resp.json())
@@ -236,13 +236,18 @@
 				var list = data
 				var count = 0 
 				var sell_price = (list[0].sell_price) 
+				if(countNow){
+
+					if (overall_price_before_disc > 0  ){
+						overall_price_before_disc = parseFloat(overall_price_before_disc) + parseFloat(sell_price) 
+					}
+					else {
+						overall_price_before_disc = parseFloat(sell_price)
+					}
+
+				}
 				
-				if (overall_price_before_disc > 0 ){
-					overall_price_before_disc = parseFloat(overall_price_before_disc) + parseFloat(sell_price) 
-				}
-				else {
-					overall_price_before_disc = parseFloat(sell_price)
-				}
+				countNow = false
 
 				console.log(overall_price_before_disc)
 					
@@ -257,13 +262,14 @@
                                         <tr>
                                         <th scope="col">الاسم</th>
                                         <th scope="col">السعر</th>
+										<th scope="col">المطلوب حتي الان</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                         <td>${list[i].name}</td>
                                         <td>${list[i].sell_price}</td>
-										
+										<td>${overall_price_before_disc}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -288,6 +294,7 @@
 		var topForm = document.getElementById('form-wrapper2')
 
 		form.addEventListener('submit', function(e){
+			countNow = true
 			e.preventDefault()
 			console.log('Form submitted')
 			var url = 'http://127.0.0.1:8000/api/create_sold_product/'
