@@ -1,5 +1,7 @@
 {%  include 'nav.html' %}
-{% load static %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +27,7 @@
 
 
 		#task-container{
-		  max-width:600px;
+		  max-width:800px;
 		  margin:0 auto;
 		  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 		  background-color: #fff;
@@ -41,7 +43,7 @@
 		#form-wrapper{
 		  position: -webkit-sticky;
 		  position: sticky;
-		  top: 0rem;
+		  top: 4rem;
 		  border-bottom: 1px solid  #e9e9e9;
 		  background-color: #fff;
 		  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
@@ -146,6 +148,7 @@
 		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
 		                break;
 		            }
+					
 		        }
 		    }
 		    return cookieValue;
@@ -348,5 +351,7 @@
             
 	</script>
 	
+{% endblock content %}
+
 </body>
 </html>

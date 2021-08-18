@@ -33,6 +33,16 @@
     }
 </style>
 </head>
+
+
+
+
+
+
+
+
+
+
 <script>
     function printDiv(divName) {
      var printContents = document.getElementById(divName).innerHTML;
@@ -45,7 +55,7 @@
      document.body.innerHTML = originalContents;
 }
 </script>
-<body>
+<body><div class="glob-w">
     <div id="printableArea">
         <div class="container" >
             <table id="example" class="example">
@@ -66,7 +76,7 @@
          </div>
   </div>
   
-
+</div>
 
   <script>
     view_ddata();
@@ -76,7 +86,7 @@
       fetch(url)
       .then((resp) => resp.json())
       .then(function(data){
-          console.log('Data:', data)
+        //   console.log('Data:', data)
        var list = data 
        $('#example').DataTable( {
 data: data,
