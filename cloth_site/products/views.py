@@ -129,6 +129,10 @@ def delete_product(request):
 
     return render (request , "delete.html" )
 
+
+def viewBills(request):
+    return render (request , "bills.html" )
+
 def barcode(request):
     return render (request , "barcode.html" )
 

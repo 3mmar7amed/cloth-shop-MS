@@ -42,3 +42,12 @@ class Returns_products(models.Model):
     discounts = models.DecimalField(max_digits=19, decimal_places=3 , null= True , blank= True )
     Date = models.CharField(default="" , max_length=10)
     product_name = models.CharField(max_length=1000 , null= True , blank= True )
+
+class bills(models.Model):
+    product_id = models.CharField(max_length=1000 , null= True , blank= True )
+    name = models.CharField(max_length=1000 , null= True , blank= True )
+    sell_price = models.DecimalField(max_digits=19, decimal_places=3 , null= True , blank= True ) 
+    user_paied = models.DecimalField(max_digits=19, decimal_places=3 , null= True , blank= True )
+    the_rest_of_money  = models.DecimalField(max_digits=19, decimal_places=3 , null= True , blank= True )
+    discounts = models.DecimalField(max_digits=19, decimal_places=3 , null= True , blank= True )
+    

@@ -92,7 +92,10 @@
 
 						
 						<div style="flex: 1">
-							<input id="submit" class="btn" onclick="calculate()" type="submit" >
+							<a href="{% url 'viewBills' %}">
+								<input  href="{% url 'viewBills' %}" id="submit" class="btn" onclick="calculate()" type="submit"  ></input>
+							</a>
+							
 						</div>
 						
 					</div>
@@ -105,7 +108,7 @@
 
 
 			<div id="form-wrapper">
-				<form id="form">
+				<form id="form1">
 					<div class="flex-wrapper">
 						
 						<div style="flex: 6">
@@ -159,14 +162,21 @@
 		var list_snapshot = []
 		var  overall_price_before_disc  = 0 
 		var countNow = false
+		var pay = document.getElementById('pay').value; 
+		var discounts = document.getElementById('discounts').value;
+		var changes
+
+
 		buildList()
 		
 		function calculate(){
-			
+			pay  = 0
+			discounts = 0 
+			changes = 0  
 			var wrapper = document.getElementById('top');
 			wrapper.innerHTML = ''
-			var pay = document.getElementById('pay').value;
-			var discounts = document.getElementById('discounts').value;
+			pay = document.getElementById('pay').value;
+			discounts = document.getElementById('discounts').value;
 			if(discounts === ''){
 				discounts = 0 
 			}
@@ -176,8 +186,8 @@
 			var price_after_discount = parseFloat(overall_price_before_disc) - parseFloat(discounts)
 			
 			 
-			var changes =  parseFloat(pay) - parseFloat(price_after_discount) 
-			console.log(changes)
+			changes =  parseFloat(pay) - parseFloat(price_after_discount) 
+			console.log( changes)
 			
 			
 			
@@ -217,7 +227,8 @@
 					`
 					wrapper.innerHTML += item
 
-					overall_price_before_disc = 0 
+					overall_price_before_disc = 0 ;
+					window.location.href="http://127.0.0.1:8000/viewBill/";
 		}
 		
 		function buildList(){
@@ -301,6 +312,7 @@
 			e.preventDefault()
 			console.log('Form submitted')
 			var url = 'http://127.0.0.1:8000/api/create_sold_product/'
+			var url2 = 'http://127.0.0.1:8000/api/bills/'
 
             var product_id = document.getElementById('product_id').value
 			var disc = document.getElementById('discounts').value
@@ -319,10 +331,32 @@
                         
                         }  ).then(function(response){
                             buildList()
-                            document.getElementById('form').reset()
+                            document.getElementById('form1').reset()
 
                         })
-                    })
+
+						fetch('http://127.0.0.1:8000/api/bills/' , {
+						method: 'POST' ,
+						headers: { 'Content-Type': 'application/json' ,
+									'X-CSRFToken':csrftoken,
+								},
+								body:JSON.stringify({
+									'product_id' : product_id ,
+									
+									}),
+							})
+
+
+				
+
+
+
+
+        })
+
+
+			
+
 
 
 			topForm.addEventListener('submit', function(s){
@@ -344,10 +378,31 @@
 							}),
                         
                         }  ).then(function(response){
+							buildList()
                             document.getElementById('form').reset()
 
                         })
-                    })			
+
+					fetch('http://127.0.0.1:8000/api/bills/' , {
+						method: 'POST' ,
+						headers: { 'Content-Type': 'application/json' ,
+									'X-CSRFToken':csrftoken,
+								},
+								body:JSON.stringify({
+									'product_id' : product_id ,
+									'user_paied' :  pay , 
+									'over_All_price' :  overall_price_before_disc ,
+									'discounts' :  discounts   , 
+									'the_rest_of_money' : changes
+									
+									}),
+							})
+
+
+                    })
+
+
+			
             
 	</script>
 	

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from products.models import products , sold_products  , Profit , Returns_products
+from products.models import products , sold_products  , Profit , Returns_products , bills
 
 from rest_framework import serializers
 from products.models import Task
@@ -48,3 +48,7 @@ class returns_serializer(serializers.ModelSerializer):
         model = Returns_products
         fields = '__all__'
 
+class bills_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = bills
+        fields = '__all__'

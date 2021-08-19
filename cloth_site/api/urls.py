@@ -12,4 +12,6 @@ urlpatterns = [
     path('reduce_profit_by_discount/' , views.reduce_profit_by_discount , name ="reduce_profit_by_discount" ),
     path('returns_products/' , views.returns_products , name ="returns_products" ),
     path('product-delete/<str:pk>/', views.productDelete, name="product-delete"),
+    path('bills/' , views.putSoldsInBill , name ="bills" ),
+    path('DeleteBills/' , views.billsDelete , name ="DeleteBills" ),
 ]

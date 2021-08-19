@@ -12,7 +12,6 @@ urlpatterns = [
     path ('returns_products_page/' , views.Return_product , name= "returns_products_page"),
     path('view_currrent_product' , views.view_current_products , name ="view_currrent_product" ),
     path('delete_product/' , views.delete_product , name = "delete_product") , 
+     path('viewBill/' , views.viewBills , name = "viewBills") , 
     path('admin/', admin.site.urls),
-    
-
 ]
