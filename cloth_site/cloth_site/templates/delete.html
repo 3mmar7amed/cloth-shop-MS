@@ -33,7 +33,18 @@
 			<label>كود القطعه </label>
 			<input name = "product_id" id = "product_id" type="number" class="input"    required> 
 		</div>
-		
+
+		<table>
+			<tr>
+				<td><input type = "radio"  class = "rb" name ="shop" id = "shop" value = "shop">  مسح من المحل </td>
+			</tr>
+			<tr>
+				<td ><input type = "radio" class = "rb" name = "inventory" id = "inventory" value = "inventory"> مسح من المخزن  </td>
+			</tr>
+			
+		</table>
+
+		  
 		<div class="btn">
 			<input id="submit" type="submit"  class="add_btn" value="مســــح">
 		</div>
@@ -66,9 +77,14 @@
 			console.log('Form submitted')
 
 			var id = document.getElementById('product_id').value
+			
+			var inventory = document.getElementById('inventory').value
+			var shop = document.getElementById('shop').value
 			console.log(id)
+			console.log(shop)
+			console.log(inventory)
             
-            fetch(`http://127.0.0.1:8000/api/product-delete/${id}/` , {
+            fetch(`http://127.0.0.1:8000/api/product-delete/${id}/${shop}/${inventory}` , {
                 method: 'DELETE' ,
                 headers: { 'Content-Type': 'application/json' ,
 							'X-CSRFToken':csrftoken,

@@ -6,7 +6,7 @@ from django.shortcuts import render , redirect
 from django.contrib import messages
 from rest_framework.exceptions import ErrorDetail
 from products.Forms import  sellForm , insertProductForm
-from products.models import products , sold_products , Profit
+from products.models import products , sold_products , Profit , products_inTheInVentory
 from django.utils import timezone
 import datetime 
 from django.db.models import Sum
@@ -19,7 +19,7 @@ from api.serializers import productsSerializer , SOLD_product_Serializer , viewS
 
 
 
-def ProductInfo(request):
+def insert_products_inTheShop(request):
 
     if request.method == 'POST':
         id = request.POST.get('product_id')
@@ -50,6 +50,40 @@ def ProductInfo(request):
     else:
         form = insertProductForm()
     return render(request, 'data_form.html', {'form': form} )
+
+
+
+def insert_products_inTheInventory(request):
+
+    if request.method == 'POST':
+        id = request.POST.get('product_id')
+        name = request.POST.get('name')
+        sell_price = request.POST.get('sell_price')
+        buy_price = request.POST.get('buy_price')
+        factory = request.POST.get('factory_name')
+        product_count = request.POST.get('num_of_items')
+        print(product_count)
+        try:
+                already_exsit = products_inTheInVentory.objects.get(product_id = id)
+                if name == '':
+                    already_exsit.num_of_items +=int(product_count)
+                    already_exsit.save()
+                    
+                    messages.success(request, 'تم زيادة عدد البضاعة بنجاح  ')
+                else:
+                    messages.success(request, 'لم يتم اضافة البضاعة ، قد يكون  كود المنتج مكرر ، حاول استخدام كود خاص بكل منتج ')
+        except:
+            q = products_inTheInVentory(product_id = id , name = name  ,sell_price = sell_price , buy_price = buy_price , num_of_items = product_count , factory_name = factory)
+            q.save()
+            messages.success(request, 'تم إضـافة البضاعة بنجاح  ')
+
+
+        return redirect('insert_Inventory')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = insertProductForm()
+    return render(request, 'insert_Inventory.html', {'form': form} )
 
 
 
@@ -115,6 +149,29 @@ def returns(id , discount):
         q.profit -= (profit- discount )
         q.save()
 
+
+
+def Create_customer_note(request) :
+    product_id = request.data.get('product_id')
+    customer_name = request.data.get('Customer_name')
+    product_info = products.objects.get(product_id =product_id)
+    today = datetime.datetime.now()
+    date = today.strftime(("%d-%m-%Y    %H:%M:%S"))
+    DATA = {
+        "product_id" : product_id , 
+        "Customer_name" : customer_name ,
+        "product_name" : product_info.name ,  
+        "Date" : date , 
+    }
+    reduce_num_of_items_byOne(product_id)
+    return DATA
+
+
+def reduce_num_of_items_byOne(product_id):
+    product_info = products.objects.get(product_id =product_id)
+    product_info.num_of_items -= 1 
+    product_info.save()
+
 def Return_product(request):
     return render(request , "returns.html")
 
@@ -138,6 +195,10 @@ def barcode(request):
 
 def Print_barcode(request):
     return render (request , "print.html" )
+
+
+def TaskList (request):
+    return render(request , "customersNotes.html")
 
 
 
