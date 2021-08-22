@@ -62,10 +62,10 @@ tr{
 
 		<table>
 			<tr>
-				<td><input type = "radio"  class = "rb" name ="shop" id = "shop" value = "shop">  مسح من المحل </td>
+				<td><input type="checkbox"  class = "rb" name ="shop" id = "shop" >  مسح من المحل </td>
 			</tr>
 			<tr>
-				<td ><input type = "radio" class = "rb" name = "inventory" id = "inventory" value = "inventory"> مسح من المخزن  </td>
+				<td ><input type="checkbox" class = "rb" name = "inventory" id = "inventory"   > مسح من المخزن  </td>
 			</tr>
 			
 		</table>
@@ -77,6 +77,13 @@ tr{
 	</form>
 </div>
 
+
+<script>
+	var shop = document.getElementById('shop').checked
+	console.log(shop)
+	inventory=document.getElementById('inventory').checked
+	console.log(inventory)
+</script>
 <script>
     function getCookie(name) {
 		    var cookieValue = null;
@@ -129,7 +136,7 @@ tr{
 
 
 <!-- ################################################ -->
-
+<!-- 
 
 	<div id="info"> 
 		
@@ -276,7 +283,7 @@ print_area.close();
 	}
   </script>
   <input class="bar-btn" type="button" value="اطبع" onclick="codespeedy()">
-
+ -->
 
  <!-- <input type="button" onclick="printDiv('printableArea')" value="print " />  -->
 
