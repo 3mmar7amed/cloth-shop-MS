@@ -1,15 +1,16 @@
 import datetime 
 from datetime import date
 import re
+import json
 from django.http import response
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from socket import socket
 from django.http import JsonResponse
-from api.serializers import viewSolds_serializer , returns_serializer , viewDailySolds_serializer  , createSolds_serializer , productsSerializer , viewProfit_serializer
-from products.models import sold_products , products  , Profit , Returns_products
-from products.views import solds , returns
+from api.serializers import viewSolds_serializer , note_serializer , TaskSerializer ,bills_serializer,  returns_serializer , viewDailySolds_serializer  , createSolds_serializer , productsSerializer , viewProfit_serializer
+from products.models import sold_products , customer_note , products  , Profit , Returns_products , bills , products_inTheInVentory ,Task
+from products.views import solds , returns , Create_customer_note
 
 
 
@@ -20,7 +21,6 @@ def create_sold_product(request):
     print(Data)
     serializer = createSolds_serializer(data=Data)
     if serializer.is_valid():
-        print("valid and done ")
         serializer.save() 
     else : print ("not valid")
     return Response(serializer.data)
@@ -93,13 +93,122 @@ def returns_products(request):
 
 
 @api_view(['DELETE'])
-def productDelete(request, pk):
-    print(type(pk))
+def productDelete(request, pk , shop , inventory):
     PK = str(pk)
     try:
-        task = products.objects.get(product_id=PK)
-        task.delete()
+        if(shop != ''):
+            product = products.objects.get(product_id=PK)
+            product.delete()
+        if(inventory != '') :
+            product = products_inTheInVentory.objects.get(product_id=PK)
+            product.delete()
+
     except:
         return Response('Item wasnot deleted!')
 
     return Response('Item succsesfully delete!')
+
+
+
+
+@api_view(['DELETE'])
+def billsDelete(request):
+
+        task = bills.objects.all()
+        task.delete()
+        print("delete is done ")
+        return Response('Item succsesfully delete!')
+
+
+
+
+
+
+@api_view(['POST' , 'GET'])
+def putSoldsInBill(request):
+
+    if request.method == 'POST':
+ 
+
+            try:
+                id = request.data.get('product_id')
+                print(id)
+                ID = str(id)
+                q = products.objects.get(product_id = ID)
+                name = q.name
+                price = q.sell_price
+                DATA = {
+                    "product_id" : ID , 
+                    "name" : name , 
+                    "sell_price" : price ,
+                }
+            except:
+                user_paied = request.data.get('user_paied')
+                over_All_price = request.data.get('over_All_price')
+                discounts = request.data.get('discounts')
+                the_rest_of_money = request.data.get('the_rest_of_money')
+                DATA = {
+                    "the_rest_of_money" : the_rest_of_money ,
+                    "discounts" :discounts ,
+                    "over_All_price" :over_All_price , 
+                    "user_paied" : user_paied ,
+                }
+
+            serializer = bills_serializer(data=DATA)
+            if serializer.is_valid():
+                serializer.save()
+            return Response(serializer.data)
+        
+    else :
+        all_products = bills.objects.all()
+        JsonData = bills_serializer(all_products, many=True)
+        return Response(JsonData.data)
+    
+
+
+
+@api_view(['GET'])
+def taskList(request):
+    tasks = Task.objects.all().order_by('-id')
+    serializer = TaskSerializer(tasks, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def taskDetail(request, pk):
+    tasks = Task.objects.get(id=pk)
+    serializer = TaskSerializer(tasks, many=False)
+    return Response(serializer.data)
+
+
+
+@api_view(['POST' , 'GET'])
+def create_note(request):
+
+    if request.method == 'POST':
+        DATA = Create_customer_note(request)
+        serializer = note_serializer(data= DATA)
+        if serializer.is_valid():
+                serializer.save()
+        else: print("not valid") 
+        return Response(serializer.data)
+
+    else :
+        all_products = customer_note.objects.all().order_by('-id')
+        JsonData = note_serializer(all_products, many=True)
+        return Response(JsonData.data)
+    
+
+
+
+@api_view(['DELETE'])
+def Delete_note(request, pk):
+    task = customer_note.objects.get(id=pk)
+    product_info = products.objects.get(product_id = task.product_id)
+    product_info.num_of_items += 1 
+    product_info.save()
+    task.delete()
+
+    return Response('Item succsesfully delete!')
+    
+   
