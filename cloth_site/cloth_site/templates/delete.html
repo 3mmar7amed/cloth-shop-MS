@@ -10,8 +10,34 @@
 	<link rel="stylesheet" href="{% static '/style/data_form.css' %}"   >
 	<link rel="stylesheet" href="{% static '/style/style.css' %}">
 	<script src="{% static '/JsBarcode.all.min.js' %} "></script>
-
+	<script>
+		function printDiv(divName) {
+		 var printContents = document.getElementById(divName).innerHTML;
+		 var originalContents = document.body.innerHTML;
+	
+		 document.body.innerHTML = printContents;
+	
+		 window.print();
+	
+		 document.body.innerHTML = originalContents;
+	}
+	</script>
 </head>
+<style>
+table{
+	margin: top 20%;
+	width: 80%;
+	margin-right: 10%;
+	border:2px solid black ;
+}
+thead{
+	color: white;
+	background-color: rgb(37, 35, 35);
+}
+tr{
+	border:2px solid black;
+}
+</style>
 <body>
 	
 <div class="wrapper">
@@ -80,6 +106,166 @@
                         })
                     })
 </script>
+
+
+
+
+
+
+<!-- ################################################ -->
+
+
+	<div id="info"> 
+		
+		<table>
+			<img style="height: 60px;" src="{% static '/img/logo.jpeg' %}" alt="Italian Trulli">
+			<thead>
+				<tr style="text-align: center;" >
+					<th></th>
+					<th ><img style="height: 90px;" src="{% static '/img/logo.jpeg' %}" alt="Italian Trulli"></th>
+					<th></th>
+				</tr>
+				<tr>
+					<th> محل الطيار للطرح</th>
+					<th>العنوان ابراهبم مغازي</th>
+					<th>الرقم 01030765500</th>
+				</tr>
+			</thead>
+		</table>
+
+         <table>
+            <thead>
+                <tr>
+                    <th> البار كود</th>
+                     <th>اسم القطعه</th>
+                    <th>سعر البيع</th>
+                    <th>سعر الشراء</th>
+                    <th>العدد</th>
+                    <th>اسم المصنع</th>
+                </tr>
+            </thead>
+            <tbody id="list-wrapper" >
+
+            </tbody>
+        </table>
+
+	
+
+ 
+
+<table>
+   <thead>
+	   <tr>
+		<th> التاريخ</th>
+		<th>المكسب</th>
+	   </tr>
+   </thead>
+   <tbody id="list-wrapper-2" >
+
+   </tbody>
+</table>
+
+</div>
+
+
+    
+    <script>
+          view_data();
+            function view_data(){
+                var wrapper = document.getElementById('list-wrapper')
+                var url = 'http://127.0.0.1:8000/api/view/'
+
+            fetch(url)
+            .then((resp) => resp.json())
+            .then(function(data){
+                console.log('Data:', data)
+             var list = data 
+              for (var i in list ){
+                var item = `
+						
+							
+                            <th >${list[i].product_id}</th>
+							<th >${list[i].name}</th>
+                            <th >${list[i].sell_price}</th>
+							<th >${list[i].buy_price}</th>
+                            <th >${list[i].num_of_items}</th>
+                            <th >${list[i].factory_name}</th>
+                           
+						
+							
+							
+								
+
+					`
+					wrapper.innerHTML += item
+	
+				}
+              
+            
+            })
+
+            }
+    </script>
+
+
+
+
+
+
+<script>
+	view_data();
+	  function view_data(){
+		  var wrapper = document.getElementById('list-wrapper-2')
+		  var url = 'http://127.0.0.1:8000/api/view_profit/'
+
+	  fetch(url)
+	  .then((resp) => resp.json())
+	  .then(function(data){
+		  console.log('Data:', data)
+	   var list = data 
+		for (var i in list ){
+		  var item = `
+				  
+					  
+					  <th >${list[i].Date}</th>
+					  <th >${list[i].profit}</th>
+
+					  
+				  
+					  
+					  
+						  
+
+			  `
+			  wrapper.innerHTML += item
+
+		  }
+		
+	  
+	  })
+
+	  }
+</script> 
+<script type="text/javascript">
+        
+	function codespeedy(){
+	  var print_div = document.getElementById("info");
+var print_area = window.open();
+print_area.document.write(print_div.innerHTML);
+print_area.document.close();
+print_area.focus();
+print_area.print();
+print_area.close();
+// This is the code print a particular div element
+	}
+  </script>
+  <input class="bar-btn" type="button" value="اطبع" onclick="codespeedy()">
+
+
+ <!-- <input type="button" onclick="printDiv('printableArea')" value="print " />  -->
+
+
+
 
 
 
