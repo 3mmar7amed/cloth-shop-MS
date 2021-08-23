@@ -15,5 +15,11 @@ urlpatterns = [
     path('bills/' , views.putSoldsInBill , name ="bills" ),
     path('DeleteBills/' , views.billsDelete , name ="DeleteBills" ),
     path('create_note/' , views.create_note , name = "create_note") , 
-	path('note-delete/<str:pk>/', views.Delete_note, name="note-delete"),
+    
+    path('view_expenses_details/' , views.view_exepenses_details , name = "view_expenses_details") ,
+    path('create_expenses/' , views.monthly_expenses , name = "create_expenses") ,
+    
+    path('note-delete/<str:pk>/', views.Delete_note, name="note-delete"),
+     
 ]
+

@@ -1,11 +1,32 @@
+from django.db import reset_queries
 from django.shortcuts import render , redirect
 from django.contrib import messages
 from products.Forms import  sellForm , insertProductForm
-from products.models import products , sold_products , Profit , products_inTheInVentory
+from products.models import products , sold_products , Profit , products_inTheInVentory , Expenses
 import datetime 
+from .decorator import unauthenticated_user
+from django.contrib.auth import authenticate, login, logout
 
 
+def checkLogin(request) :
 
+    if request.method == 'POST':
+        user_pass = request.POST.get('user_pass')
+        user_name = request.POST.get('user_name')
+        if user_pass == "admin0100" : 
+            user = authenticate(request, username=user_name, password=user_pass)
+            if user is not None:
+                login(request, user)
+                return redirect('sell2')
+            else : print ("user name is wrong ")
+        elif user_pass == "ahmed" :
+            user = authenticate(request, username=user_name, password=user_pass)
+            if user is not None:
+                login(request, user)
+                return redirect('sell_employee')
+
+    return render(request ,'login.html' )
+ 
 
 def insert_products_inTheShop(request):
 
@@ -124,6 +145,7 @@ def calculate_profit(buy_price , pay ) :
        
     q.save()
 
+
 def returns(id , discount):
 
         if(discount == ''):
@@ -159,6 +181,19 @@ def reduce_num_of_items_byOne(product_id):
     product_info.num_of_items -= 1 
     product_info.save()
 
+def store_expenses(expenses , price) :
+    today = datetime.datetime.now()
+    month = today.month
+    print(month)
+    try:
+            ex = Expenses.objects.get(month_date = str(month))
+            ex.price += int(price)
+            ex.save()
+    except:
+            ex = Expenses(month_date = str(month) , price = int(price))
+            ex.save()
+
+
 def Return_product(request):
     return render(request , "returns.html")
 
@@ -180,14 +215,16 @@ def viewBills(request):
 def barcode(request):
     return render (request , "barcode.html" )
 
-def Print_barcode(request):
-    return render (request , "print.html" )
+def view_profit(request):
+    return render (request , "view_profit_.html" )
 
 
 def TaskList (request):
     return render(request , "customersNotes.html")
 
 
+def EXpenses (request):
+    return render(request , "expenses.html")
 
 
 

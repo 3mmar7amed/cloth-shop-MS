@@ -66,3 +66,17 @@ class customer_note(models.Model):
     product_id =  models.CharField(max_length=1000 , null= True , blank= True )
     product_name =  models.CharField(max_length=1000 , null= True , blank= True )
     Date = models.CharField(max_length=1000 , null= True , blank= True )
+
+class Users(models.Model):
+    user_name = models.CharField(max_length=200)
+    user_pass = models.CharField(max_length=200)
+    
+class Expenses(models.Model):
+    price = models.DecimalField(max_digits=19, decimal_places=2, null= True , blank= True )
+    month_date = models.CharField(max_length=1000 , null= True , blank= True )
+
+class Expenses_details(models.Model):
+    expenses = models.CharField(max_length=1000 , null= True , blank= True )
+    price = models.DecimalField(max_digits=19, decimal_places=2, null= True , blank= True )
+    Date = models.CharField(max_length=1000 ,default="" ,  null= True , blank= True )
+ 

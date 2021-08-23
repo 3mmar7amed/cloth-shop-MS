@@ -8,11 +8,18 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from socket import socket
 from django.http import JsonResponse
-from api.serializers import viewSolds_serializer , note_serializer , TaskSerializer ,bills_serializer,  returns_serializer , viewDailySolds_serializer  , createSolds_serializer , productsSerializer , viewProfit_serializer
-from products.models import sold_products , customer_note , products  , Profit , Returns_products , bills , products_inTheInVentory ,Task
-from products.views import solds , returns , Create_customer_note
+from api.serializers import expenses_details_serializer ,  expense_serializer , viewSolds_serializer , note_serializer , TaskSerializer ,bills_serializer,  returns_serializer , viewDailySolds_serializer  , createSolds_serializer , productsSerializer , viewProfit_serializer
+from products.models import Expenses , Expenses_details , sold_products , customer_note , products  , Profit , Returns_products , bills , products_inTheInVentory ,Task
+from products.views import solds , returns , Create_customer_note , checkLogin , store_expenses 
 
 
+
+@api_view(['POST'])
+def login(request):
+
+    checkLogin(request)
+
+    return Response()
 
 @api_view(['POST'])
 def create_sold_product(request):
@@ -211,4 +218,52 @@ def Delete_note(request, pk):
 
     return Response('Item succsesfully delete!')
     
-   
+
+@api_view(['POST' , 'GET'])
+def monthly_expenses(request):
+    if request.method == 'POST':
+
+        price = request.data.get('price')
+        expenses = request.data.get('expenses')
+
+        store_expenses(expenses , price )
+        delete_last_30items()
+        
+        create_expenses_details( price , expenses)
+        
+        return Response()
+
+    else :
+        all_products = Expenses.objects.all()
+        JsonData = expense_serializer(all_products, many=True)
+        return Response(JsonData.data)
+
+
+
+def delete_last_30items():
+    num =Expenses_details.objects.all().count()
+    if num > 30 :
+        Expenses_details.objects.filter().delete()
+
+def create_expenses_details(  price , expenses):
+    
+    today = datetime.datetime.now()
+    date = today.strftime(("%d-%m-%Y    %H:%M:%S"))
+
+    DATA = {
+        "expenses" : expenses , 
+        "price" : price , 
+        "Date" : date
+
+    }
+    serializer = expenses_details_serializer(data=DATA)
+    if serializer.is_valid():
+        serializer.save()
+
+
+@api_view(['GET'])
+def view_exepenses_details(request) :
+    
+    all_products = Expenses_details.objects.filter().order_by('-id')[:10]
+    JsonData = expenses_details_serializer(all_products, many=True)
+    return Response(JsonData.data)
