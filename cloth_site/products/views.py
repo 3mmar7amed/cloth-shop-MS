@@ -1,21 +1,9 @@
-from functools import partial
-from django.http import HttpResponseRedirect
-from django.http import response
-from django.http.response import JsonResponse
 from django.shortcuts import render , redirect
 from django.contrib import messages
-from rest_framework.exceptions import ErrorDetail
 from products.Forms import  sellForm , insertProductForm
 from products.models import products , sold_products , Profit , products_inTheInVentory
-from django.utils import timezone
 import datetime 
-from django.db.models import Sum
-from django.db.models.functions import TruncMonth
-from rest_framework import serializers, status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from socket import socket
-from api.serializers import productsSerializer , SOLD_product_Serializer , viewSolds_serializer, viewProfit_serializer
+
 
 
 
@@ -28,7 +16,6 @@ def insert_products_inTheShop(request):
         buy_price = request.POST.get('buy_price')
         factory = request.POST.get('factory_name')
         product_count = request.POST.get('num_of_items')
-        print(product_count)
         try:
                 already_exsit = products.objects.get(product_id = id)
                 if name is '':
