@@ -7,6 +7,9 @@ import datetime
 from .decorator import unauthenticated_user , admin_only
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import PasswordChangeView 
+from django.contrib.auth.forms import PasswordChangeForm 
+from django.urls import reverse_lazy
 
 
 @unauthenticated_user
@@ -192,13 +195,16 @@ def reduce_num_of_items_byOne(product_id):
 def store_expenses(expenses , price) :
     today = datetime.datetime.now()
     month = today.month
+    year = today.year
+    date = str(month) +"-"+str(year)
     print(month)
     try:
-            ex = Expenses.objects.get(month_date = str(month))
+            ex = Expenses.objects.get(month_date = date)
             ex.price += int(price)
             ex.save()
+            
     except:
-            ex = Expenses(month_date = str(month) , price = int(price))
+            ex = Expenses(month_date = date , price = int(price))
             ex.save()
 
 
@@ -251,10 +257,11 @@ def EXpenses (request):
 def view_products_inTheInventory (request):
     return render(request , "view_inventory.html")
 
-def change_pass(request) :
-    password = request.data.get('pass')
-    request.user.User.get(password = password)
 
+
+class changePassword(PasswordChangeView):
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy('sell')
 
 
 

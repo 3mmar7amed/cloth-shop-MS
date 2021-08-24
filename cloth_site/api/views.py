@@ -65,6 +65,7 @@ def view_products(request):
 @api_view(('GET',))
 def view_profit(request):
     all_products = Profit.objects.all()
+
     JsonData = viewProfit_serializer(all_products, many=True)
     return Response(JsonData.data)
 

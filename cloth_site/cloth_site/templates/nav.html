@@ -49,8 +49,17 @@
 
 </head>
 <body>
-  <div class="nav" >
+  <div class="nav" style="height: 150px;" >
             
+    <a class="a" href= "{% url 'sell' %}" >بيع</a>
+    <a class="a" href="{% url 'barcode' %}">باركود</a>
+    <a class="a" href="{% url 'view_solds_page' %}">المبيعات</a>
+    <a class="a" href="{% url 'returns_products_page' %}">المرتجع</a>
+    <a class="a" href= "{% url 'TaskList' %}" >استلاف قطعة </a>
+    <a class="a" href="{% url 'expenses' %}"> مصاريف خارجية </a>
+    
+
+
     {% if request.user.is_staff %}
     <div class="a dropdown" style="padding-right: 10px;">
       <a class="a ">اضافه قطعه </a>
@@ -66,20 +75,17 @@
         <a  href="{% url 'view_Inventory' %}">   في المخزن </a>
         <a  href="{% url 'view_currrent_product' %}">  في المحل </a>
         <a  href="{% url 'view_profit_' %}">تقارير</a>
-       
       </div>
     </div>
     <a class="a" href="{% url 'delete_product' %}">مسح بضاعة</a>
-
+    <a class="a" href= "{% url 'ChangePassword' %}" >تغيير كلمه السر</a>
+    
     {% endif  %}
 
-    <a class="a" href= "{% url 'sell' %}" >بيع</a>
-    <a class="a" href="{% url 'view_currrent_product' %}"> البضاعة  </a>
-    <a class="a" href="{% url 'barcode' %}">باركود</a>
-    <a class="a" href="{% url 'view_solds_page' %}">المبيعات</a>
-    <a class="a" href="{% url 'returns_products_page' %}">المرتجع</a>
-    <a class="a" href="{% url 'expenses' %}"> مصاريف خارجية </a>
-    <a  class=" a hello-msg" href="{% url 'logout' %}">نسجيل الخروج</a>
+
+
+
+    <a  class=" a hello-msg" href="{% url 'logout' %}">تسجيل الخروج</a>
 
 
     

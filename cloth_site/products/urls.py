@@ -2,8 +2,9 @@ from django.contrib import admin
 from products import  views
 from django.urls import include, path
 
-
+from django.contrib.auth import views as auth_views
 urlpatterns = [
+    
     path('' , views.checkLogin , name = "login") , 
     path('logout/', views.logoutUser, name="logout"),
     path('solds/' , views.solds , name = "sell") , 
@@ -20,5 +21,6 @@ urlpatterns = [
     path('viewBill/' , views.viewBills , name = "viewBills") , 
     path('TaskList/' , views.TaskList , name = "TaskList" ) , 
     path('expenses/' , views.EXpenses , name = "expenses" ) , 
+    path('ChangePassword/' , views.changePassword.as_view() , name= "ChangePassword" ),
     path('admin/', admin.site.urls),
 ]
