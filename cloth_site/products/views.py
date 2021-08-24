@@ -5,7 +5,7 @@ from products.Forms import  sellForm , insertProductForm
 from products.models import products , sold_products , Profit , products_inTheInVentory , Expenses
 import datetime 
 from .decorator import unauthenticated_user , admin_only
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.decorators import login_required
 
 
