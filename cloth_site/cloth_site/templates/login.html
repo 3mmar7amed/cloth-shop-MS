@@ -32,11 +32,11 @@
             {% csrf_token %}
             <div class="input_field">
                 <label>اسم المستخدم</label>
-                <input type="text" class="input" name="user_name">
+                <input type="text" class="input" name="user_name" required >
             </div>
             <div class="input_field">
                 <label>كلمه السر</label>
-                <input type="password" class="input" name="user_pass">
+                <input type="password" class="input" name="user_pass" required >
                 
             </div>
             <div class="btn">

@@ -24,13 +24,16 @@
         width: 80%;
         margin-right: 10%;
         border:2px solid black ;
+        text-align: center;
     }
     thead{
         color: white;
         background-color: rgb(37, 35, 35);
+        text-align: center;
     }
     tr{
         border:2px solid black;
+        text-align: center;
     }
 </style>
 </head>
@@ -80,6 +83,26 @@
   
 </div>
 
+<div class="glob-w">
+    <div id="printableArea">
+        <div class="container" >
+            <table id="exp" class="exp">
+                <thead>
+                    <tr>
+                        <th> المصاريف</th>
+                         <th>التاريخ</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    
+                </tbody>
+                </table>
+                
+         </div>
+  </div>
+  
+</div>
   <script>
     view_ddata();
       function view_ddata(){
@@ -104,5 +127,34 @@ columns: [
       }
 
 </script>
+
+<script>
+    view_ddata();
+      function view_ddata(){
+          var wrapper = document.getElementById('list-wrapper')
+          var url = 'http://127.0.0.1:8000/api/create_expenses/'
+      fetch(url)
+      .then((resp) => resp.json())
+      .then(function(data){
+        //   console.log('Data:', data)
+       var list = data 
+       $('#exp').DataTable( {
+data: data,
+columns: [
+
+        
+  
+  { data: "price" },
+  { data:"month_date" }
+
+]
+} );
+
+      })
+
+      }
+
+</script>
+  <!-- <input type="button" onclick="printDiv('printableArea')" value="print " /> -->
 </body>
 </html>

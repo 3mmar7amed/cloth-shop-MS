@@ -34,13 +34,16 @@ table , p{
 	width: 80%;
 	margin-right: 10%;
 	border:2px solid black  ;
+    text-align: center;
 }
 thead{
     color: white;
     background-color: rgb(37, 35, 35);
+    text-align: center;
 }
 tr{
     border:2px solid black;
+    text-align: center;
 }
 </style>
 </head>
@@ -52,7 +55,7 @@ tr{
     <input class="bar-btn" type="button" value="اطبع" onclick="codespeedy()">
 <div class="print" id="info">
     <table>
-        <img style="height: 60px;" src="{% static '/img/logo.jpeg' %}" alt="Italian Trulli">
+       
         <thead>
             <tr style="text-align: center;" >
                 <th></th>
@@ -62,35 +65,45 @@ tr{
             
         </thead>
     </table>
+    <table>
+        <thead>
+            <tr>
+                    
+                <th>
+                 <th>محل الطيار للطرح </th>
+                </th>
+                 <th style="text-align: center; align-items: center;">
+                    اسم البائع : 
+                     <select style="   border:none;
+                     -webkit-appearance: none;
+                     -moz-appearance: none;
+                     appearance: none;
+                     -ms-appearance: none; 
+                     direction: unset; background-color: unset; border: white 10px solid;
+                     color: white;
+                     text-align: center;
+                     font-size: 16px;
+                     display: inline;
+                      " onchange="this.options[this.selectedIndex].setAttribute('selected','selected');" >
+                        
+                         <option style="color: black;" value="mercedes">احمد </option>
+                         <option style="color: black;" value="audi">علي </option>
+                       </select>
+                 </th>
+                
+             </tr>
+        </thead>
+    </table>
+
 
         <table>
             <thead>
+                
+
                 <tr>
                     
-                   
-                    <th style="text-align: center; align-items: center;">
-                        <select style="   border:none;
-                        -webkit-appearance: none;
-                        -moz-appearance: none;
-                        appearance: none;
-                        -ms-appearance: none; 
-                        direction: unset; background-color: unset; border: white 10px solid;
-                        color: white;
-                        text-align: center;
-                        font-size: 20px;
-                         " onchange="this.options[this.selectedIndex].setAttribute('selected','selected');" >
-                           
-                            <option style="color: black;" value="mercedes">احمد </option>
-                            <option style="color: black;" value="audi">علي </option>
-                          </select>
-                    </th>
-                   
-                </tr>
-                <tr>
-                    
-                     <th>بجوار بامبينو 
-                   <th>الهاتف: 01095999802
-                   
+                     <th>العنوان : ابراهيم مغازي بجوار بامبينو </th>              
+                     <th>الهاتف: 01095999802</th>                  
                 </tr>
             </thead>
         </table>
@@ -100,7 +113,7 @@ tr{
             <tr> 
                 <th>  الــــــــكود </th> 
                     <th>اسم القطــــعه</th> 
-                <th>سعر البيــــــع</th> 
+                <th>السعر</th> 
                 
             </tr> 
         </thead> 
