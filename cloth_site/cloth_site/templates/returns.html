@@ -26,16 +26,16 @@
         {%endfor%}
 	</div>
     <!-- form method is get  -->
-	<form class="form" method="post" >
+	<form class="form" id="form" method="post" >
 		{% csrf_token %}
 		<div class="input_field" >
 			<label>كود القطعه </label>
-			<input name = "product_id" type="text" class="input"    required> 
+			<input name = "product_id" id = "product_id" type="text" class="input"    required> 
 		</div>
 
         <div class="input_field" >
 			<label> المخصـــوم </label>
-			<input name = "discounts" type="number" class="input"    > 
+			<input name = "discounts"  id = "discounts" type="number" class="input"    > 
 		</div>
 		
 		<div class="btn">
@@ -43,6 +43,58 @@
 		</div>
 	</form>
 </div>
+
+<script>
+    function getCookie(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+					
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getCookie('csrftoken');
+
+        var form = document.getElementById('form') 
+		
+            
+		form.addEventListener('submit', function(s){
+			s.preventDefault()
+			console.log('Form submitted')
+			
+
+			var disc = document.getElementById('discounts').value
+			var product_id = document.getElementById('product_id').value
+			console.log(product_id)
+			console.log(disc)
+
+					fetch('http://127.0.0.1:8000/api/returns_products/' , {
+						method: 'POST' ,
+						headers: { 'Content-Type': 'application/json' ,
+									'X-CSRFToken':csrftoken,
+								},
+								body:JSON.stringify({
+									'product_id' : product_id ,
+									'discounts' :  disc   , 
+									
+									
+									}),
+							}).then(function(response){
+                            document.getElementById('form').reset()
+
+                        })
+
+
+                    })
+</script>
 
 
 

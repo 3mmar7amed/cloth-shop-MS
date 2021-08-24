@@ -27,7 +27,9 @@
         <div class="title">
             <p>تسجيل الدخول </p>
         </div>
+        
         <form class="form" method="post" >
+            {% csrf_token %}
             <div class="input_field">
                 <label>اسم المستخدم</label>
                 <input type="text" class="input" name="user_name">

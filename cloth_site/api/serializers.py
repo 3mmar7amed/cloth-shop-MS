@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from products.models import products ,Expenses, sold_products  , Profit , Returns_products , bills , customer_note , Expenses_details
+from products.models import products ,Expenses, sold_products  , Profit , Returns_products , bills , customer_note , Expenses_details ,products_inTheInVentory
 
 from rest_framework import serializers
 from products.models import Task
@@ -74,4 +74,10 @@ class expense_serializer(serializers.ModelSerializer) :
 class expenses_details_serializer(serializers.ModelSerializer) :
     class Meta:
         model = Expenses_details
+        fields = '__all__'
+
+
+class products_inTheInVentory_serializer(serializers.ModelSerializer) :
+    class Meta:
+        model = products_inTheInVentory
         fields = '__all__'

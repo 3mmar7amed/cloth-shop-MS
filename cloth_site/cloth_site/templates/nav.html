@@ -24,19 +24,23 @@
 <body>
   <div class="nav">
             
-
+    {% if request.user.is_staff %}
     <a  href="{% url 'insertProduct' %}"> اضافه قطعه في المحل</a>
     <a  href="{% url 'insert_Inventory' %}"> اضافه قطعه في المخزن</a>
-    
+    <a href="{% url 'view_Inventory' %}">  البضاعة الموجودة في المخزن </a>
+    <a href="{% url 'delete_product' %}">مسح بضاعة</a>
     <a href="{% url 'view_profit_' %}">تقارير</a>
+
+    {% endif  %}
+
     <a href= "{% url 'sell' %}" >بيع</a>
-    
-    <a href="{% url 'view_currrent_product' %}">البضاعة الموجودة</a>
+    <a href="{% url 'view_currrent_product' %}"> البضاعة الموجودة في المحل </a>
     <a href="{% url 'barcode' %}">باركود</a>
     <a href="{% url 'view_solds_page' %}">المبيعات</a>
     <a href="{% url 'returns_products_page' %}">المرتجع</a>
-    <a href="{% url 'delete_product' %}">مسح بضاعة</a>
+   
     <a href="{% url 'expenses' %}"> مصاريف خارجية </a>
+    <span ><a  class="hello-msg" href="{% url 'logout' %}">Logout</a></span>
 
 
     

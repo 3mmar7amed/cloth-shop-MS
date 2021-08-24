@@ -4,30 +4,36 @@ from django.contrib import messages
 from products.Forms import  sellForm , insertProductForm
 from products.models import products , sold_products , Profit , products_inTheInVentory , Expenses
 import datetime 
-from .decorator import unauthenticated_user
+from .decorator import unauthenticated_user , admin_only
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 
+@unauthenticated_user
 def checkLogin(request) :
 
     if request.method == 'POST':
         user_pass = request.POST.get('user_pass')
         user_name = request.POST.get('user_name')
-        if user_pass == "admin0100" : 
-            user = authenticate(request, username=user_name, password=user_pass)
-            if user is not None:
+        user = authenticate(request, username=user_name, password=user_pass)
+        if user is not None:
                 login(request, user)
-                return redirect('sell2')
-            else : print ("user name is wrong ")
-        elif user_pass == "ahmed" :
-            user = authenticate(request, username=user_name, password=user_pass)
-            if user is not None:
-                login(request, user)
-                return redirect('sell_employee')
+                return redirect('sell')
+        else : print ("user name is wrong ")
+       
 
     return render(request ,'login.html' )
- 
 
+
+
+def logoutUser(request):
+	logout(request)
+	return redirect('login')
+
+
+
+@login_required(login_url='login')
+@admin_only
 def insert_products_inTheShop(request):
 
     if request.method == 'POST':
@@ -60,7 +66,8 @@ def insert_products_inTheShop(request):
     return render(request, 'data_form.html', {'form': form} )
 
 
-
+@login_required(login_url='login')
+@admin_only
 def insert_products_inTheInventory(request):
 
     if request.method == 'POST':
@@ -96,7 +103,7 @@ def insert_products_inTheInventory(request):
 
 
 
-
+@login_required(login_url='login')
 def solds(request):
  
     if request.method == 'POST':
@@ -145,19 +152,20 @@ def calculate_profit(buy_price , pay ) :
        
     q.save()
 
-
 def returns(id , discount):
 
-        if(discount == ''):
-            discount = 0 
-        product_info = products.objects.get(product_id = id)
-        product_info.num_of_items += 1
-        product_info.save()
-        profit = product_info.buy_price - product_info.buy_price 
-        q = Profit.objects.filter().last()
-        q.profit -= (profit- discount )
-        q.save()
-
+            if(discount == ''):
+                discount = 0 
+            ID = str(id)
+            product_info = products.objects.get(product_id = ID)
+            product_info.num_of_items += 1
+            product_info.save()
+            profit = product_info.sell_price - product_info.buy_price
+            q = Profit.objects.filter().last()
+            q.profit -= (profit- discount )
+            q.save()
+        
+        
 
 
 def Create_customer_note(request) :
@@ -194,37 +202,59 @@ def store_expenses(expenses , price) :
             ex.save()
 
 
+
+
+@login_required(login_url='login')
 def Return_product(request):
     return render(request , "returns.html")
 
+@login_required(login_url='login')
 def view_current_products(request):
     return render (request , "view_products.html")
 
+
+@login_required(login_url='login')
 def view_solds_page(request):
     return render(request , "view_solds.html")
 
-
+@login_required(login_url='login')
+@admin_only
 def delete_product(request):
 
     return render (request , "delete.html" )
 
-
+@login_required(login_url='login')
 def viewBills(request):
     return render (request , "bills.html" )
 
+@login_required(login_url='login')
 def barcode(request):
     return render (request , "barcode.html" )
 
+@login_required(login_url='login')
+@admin_only
 def view_profit(request):
     return render (request , "view_profit_.html" )
 
 
+@login_required(login_url='login')
 def TaskList (request):
     return render(request , "customersNotes.html")
 
-
+@login_required(login_url='login')
 def EXpenses (request):
     return render(request , "expenses.html")
+
+
+@login_required(login_url='login')
+@admin_only
+def view_products_inTheInventory (request):
+    return render(request , "view_inventory.html")
+
+def change_pass(request) :
+    password = request.data.get('pass')
+    request.user.User.get(password = password)
+
 
 
 

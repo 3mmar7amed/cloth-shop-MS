@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from socket import socket
 from django.http import JsonResponse
-from api.serializers import expenses_details_serializer ,  expense_serializer , viewSolds_serializer , note_serializer , TaskSerializer ,bills_serializer,  returns_serializer , viewDailySolds_serializer  , createSolds_serializer , productsSerializer , viewProfit_serializer
+from api.serializers import products_inTheInVentory_serializer, expenses_details_serializer ,  expense_serializer , viewSolds_serializer , note_serializer , TaskSerializer ,bills_serializer,  returns_serializer , viewDailySolds_serializer  , createSolds_serializer , productsSerializer , viewProfit_serializer
 from products.models import Expenses , Expenses_details , sold_products , customer_note , products  , Profit , Returns_products , bills , products_inTheInVentory ,Task
 from products.views import solds , returns , Create_customer_note , checkLogin , store_expenses 
 
@@ -20,6 +20,14 @@ def login(request):
     checkLogin(request)
 
     return Response()
+
+
+@api_view(('GET',))
+def view_productsInInventory(request):
+    all_products = products_inTheInVentory.objects.all()
+    JsonData = products_inTheInVentory_serializer(all_products, many=True)
+    return Response(JsonData.data)
+
 
 @api_view(['POST'])
 def create_sold_product(request):
@@ -79,9 +87,9 @@ def reduce_profit_by_discount(request):
 def returns_products(request):
     if request.method == 'POST':
         id = request.data.get('product_id')
-        discount = request.data.get('discount')
+        discount = request.data.get('discounts')
+
         returns(id , discount)
-        print(id)
         product_name =products.objects.get(product_id  = id).name
         today = datetime.datetime.now()
         date = today.strftime(("%d-%m-%Y    %H:%M:%S"))
@@ -91,7 +99,11 @@ def returns_products(request):
             "date" : date , 
             "name" : product_name
         }
-        return Response(data = data)
+        serializer = returns_serializer(data=data)
+        if serializer.is_valid():
+            serializer.save() 
+        
+        return Response(data = serializer.data)
     else :
         all_products = Returns_products.objects.all()
         JsonData = returns_serializer(all_products, many=True)
@@ -100,17 +112,20 @@ def returns_products(request):
 
 
 @api_view(['DELETE'])
-def productDelete(request, pk , shop , inventory):
+def productDelete(request, pk, WhichPlace):
     PK = str(pk)
+    print(WhichPlace)
     try:
-        if(shop != ''):
+        if(WhichPlace == "shop"):
             product = products.objects.get(product_id=PK)
             product.delete()
-        if(inventory != '') :
+        if(WhichPlace  == "inventory") :
+            print("iam here")
             product = products_inTheInVentory.objects.get(product_id=PK)
             product.delete()
 
     except:
+        print("item is not deleted")
         return Response('Item wasnot deleted!')
 
     return Response('Item succsesfully delete!')
@@ -121,10 +136,10 @@ def productDelete(request, pk , shop , inventory):
 @api_view(['DELETE'])
 def billsDelete(request):
 
-        task = bills.objects.all()
-        task.delete()
-        print("delete is done ")
-        return Response('Item succsesfully delete!')
+    task = bills.objects.all()
+    task.delete()
+    print("delete is done ")
+    return Response('Item succsesfully delete!')
 
 
 
