@@ -16,6 +16,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="{% static '/style/style.css' %}">
     <link rel="stylesheet" href="{% static '/style/data_form.css' %}"   >
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
      <script src="{% static 'jquery-3.6.0.min.js' %} "></script>
      <link rel="stylesheet" type="text/css" href="{% static '/DataTables/datatables.min.css' %}">
  
@@ -58,11 +59,7 @@ tr{
                 <th ><img style="height: 90px;" src="{% static '/img/logo.jpeg' %}" alt="Italian Trulli"></th>
                 <th></th>
             </tr>
-            <tr>
-                <th> محل الطيار للطرح</th>
-                <th>العنوان ابراهبم مغازي</th>
-                <th>الرقم 01030765500</th>
-            </tr>
+            
         </thead>
     </table>
 
@@ -70,9 +67,23 @@ tr{
             <thead>
                 <tr>
                     
-                   <th> <br> محل الطيار للطرح
-                   <th> <br>العنوان : ابراهيم مغازي 
-
+                   
+                    <th style="text-align: center; align-items: center;">
+                        <select style="   border:none;
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        appearance: none;
+                        -ms-appearance: none; 
+                        direction: unset; background-color: unset; border: white 10px solid;
+                        color: white;
+                        text-align: center;
+                        font-size: 20px;
+                         " onchange="this.options[this.selectedIndex].setAttribute('selected','selected');" >
+                           
+                            <option style="color: black;" value="mercedes">احمد </option>
+                            <option style="color: black;" value="audi">علي </option>
+                          </select>
+                    </th>
                    
                 </tr>
                 <tr>
@@ -113,6 +124,20 @@ tr{
 
 </div> 
 
+
+<script type="text/javascript">
+        
+    function codespeedy(){
+        var print_div = document.getElementById("info");
+        var print_area = window.open();
+        print_area.document.write(print_div.innerHTML);
+        print_area.document.close();
+        print_area.focus();
+        print_area.print();
+        print_area.close();
+// This is the code print a particular div element
+    }
+  </script>
 
 <script type="text/javascript">
         function getCookie(name) {

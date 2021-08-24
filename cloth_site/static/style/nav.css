@@ -3,16 +3,16 @@
   width: 100%;
   top: 0;
   position: fixed;   
-    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
     overflow: hidden;
   }
 
 
   img{
     display: inline;
-    height: 65px;
+    height: 79px;
   }
-  .nav a {
+  .nav .a {
     background-color: #255ea8;
       /* margin-right:calc((100% - 64px)/ 6 ) ; */
     float: right;
@@ -22,8 +22,8 @@
     text-decoration: none;
     font-size: 25px;
     font-weight: 400;
-    width: calc( 100% / 11 );
-    height: 65px;
+    width: calc( 100% / 12 );
+    height: 80px;
   }
  
   .logo-img{
@@ -34,8 +34,8 @@
     text-align:center;
     text-decoration: none;
     font-size: 30px;
-    width: calc( 100% / 11 );
-    height: 65px;
+    width: calc( 100% / 12 );
+    height: 80px;
   
   }
 .logo{
@@ -49,9 +49,22 @@
   text-decoration: none;
   font-size: 30px;
 
+  width: calc( 100% / 12 );
+  height: 80px;
+
+}
+.a{
+  background-color: #255ea8;
+  /* margin-right:calc((100% - 64px)/ 6 ) ; */
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  /* padding: 14px 16px; */
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 400;
   width: calc( 100% / 11 );
   height: 65px;
-
 }
   .nav a:hover {
     background-color: rgb(93, 61, 233);
