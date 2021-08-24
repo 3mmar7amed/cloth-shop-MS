@@ -23,7 +23,22 @@ body{
 	
 }
 
-
+table , p{
+    margin: top 20%;
+	width: 80%;
+	margin-right: 10%;
+	border:2px solid black  ;
+	text-align: center;
+}
+thead{
+    color: white;
+    background-color: rgb(37, 35, 35);
+	text-align: center;
+}
+tr{
+    border:2px solid black;
+	text-align: center;
+}
 
 .glob-w{
 	margin-top:190px;
