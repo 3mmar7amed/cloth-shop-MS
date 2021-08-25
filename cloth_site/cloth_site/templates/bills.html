@@ -52,7 +52,7 @@ tr{
 <br>
 
 
-    <input class="bar-btn" type="button" value="اطبع" onclick="codespeedy()">
+    
 <div class="print" id="info">
     <table>
        
@@ -87,7 +87,7 @@ tr{
                       " onchange="this.options[this.selectedIndex].setAttribute('selected','selected');" >
                         
                          <option style="color: black;" value="mercedes">احمد </option>
-                         <option style="color: black;" value="audi">علي </option>
+                         <option style="color: black;" value="audi">طارق </option>
                        </select>
                  </th>
                 
@@ -114,6 +114,7 @@ tr{
                 <th>  الــــــــكود </th> 
                     <th>اسم القطــــعه</th> 
                 <th>السعر</th> 
+                <th>العدد</th>
                 
             </tr> 
         </thead> 
@@ -136,21 +137,10 @@ tr{
 </table> 
 
 </div> 
+<input class="bar-btn" type="button" value="اطبع" onclick="codespeedy()">
 
 
-<script type="text/javascript">
-        
-    function codespeedy(){
-        var print_div = document.getElementById("info");
-        var print_area = window.open();
-        print_area.document.write(print_div.innerHTML);
-        print_area.document.close();
-        print_area.focus();
-        print_area.print();
-        print_area.close();
-// This is the code print a particular div element
-    }
-  </script>
+
 
 <script type="text/javascript">
         function getCookie(name) {
@@ -189,26 +179,8 @@ tr{
                         
                         })
 
-
-// This is the code print a particular div element
     }
 
-
-//  function codespeedy(s){
-// 			s.preventDefault()
-// 			console.log('Form submitted')
-
-// 			var id = document.getElementById('product_id').value
-// 			console.log(id)
-            
-//             fetch(`http://127.0.0.1:8000/api/DeleteBills/` , {
-//                 method: 'DELETE' ,
-//                 headers: { 'Content-Type': 'application/json' ,
-// 							'X-CSRFToken':csrftoken,
-//                          }
-                        
-//                         }  )
-//                     })
   </script>
 
 
@@ -231,8 +203,9 @@ tr{
                 <th >${list[i].product_id}</th> 
                 <th >${list[i].name}</th> 
                 <th >${list[i].sell_price}</th> 
+                <th >${list[i].numOfItems}</th> 
                 ` 
-wrapper.innerHTML += item 
+                wrapper.innerHTML += item 
          }
       
 
@@ -274,6 +247,7 @@ wrapper.innerHTML += item
 
 } 
 </script>
+
 </body>
 
 </html>

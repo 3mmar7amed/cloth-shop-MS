@@ -112,11 +112,12 @@ def solds(request):
     if request.method == 'POST':
 
         id = request.data.get('product_id')
-        
+        num_of_items = request.data.get('num')
+        print(num_of_items)
         product_info = products.objects.get(product_id = id)
         product_info.num_of_items -= 1
         product_info.save()
-        
+        Sell_price = (product_info.sell_price * int(num_of_items))
         today = datetime.datetime.now()
         date = today.strftime(("%d-%m-%Y    %H:%M:%S"))
         Y_M_D_solds = today.strftime(("%d-%m-%Y"))
@@ -127,9 +128,10 @@ def solds(request):
                     "sell_price" : product_info.sell_price , 
                     "sold_date" : date,
                     "year_month_day_solds" : Y_M_D_solds,
+                    "num_of_items" : num_of_items,
                 }
             
-        calculate_profit(product_info.buy_price , product_info.sell_price )
+        calculate_profit(product_info.buy_price , product_info.sell_price  ,int(num_of_items) )
         
         return data    
             
@@ -140,8 +142,8 @@ def solds(request):
 
 
 
-def calculate_profit(buy_price , pay ) :
-    profit = pay - buy_price
+def calculate_profit(buy_price , pay , numOfItems ) :
+    profit = (pay - buy_price) * numOfItems
     today = datetime.datetime.now()
     month = today.month
     year = today.year

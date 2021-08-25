@@ -155,7 +155,9 @@ def putSoldsInBill(request):
 
             try:
                 id = request.data.get('product_id')
-                print(id)
+                numOfItems = request.data.get('num')
+                print("number of items are")
+                print(numOfItems)
                 ID = str(id)
                 q = products.objects.get(product_id = ID)
                 name = q.name
@@ -164,6 +166,7 @@ def putSoldsInBill(request):
                     "product_id" : ID , 
                     "name" : name , 
                     "sell_price" : price ,
+                    "numOfItems" :numOfItems ,
                 }
             except:
                 user_paied = request.data.get('user_paied')

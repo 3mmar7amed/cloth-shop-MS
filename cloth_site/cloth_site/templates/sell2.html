@@ -113,6 +113,7 @@
 						
 						<div style="flex: 6">
 							<input id="product_id" class="form-control" type="number" name="product_id" placeholder="الكود">
+							<input id="num" class="form-control" type="number" name="num" placeholder="العدد">
 						</div>
 						<div style="flex: 1">
 							<input id="submit" class="btn" type="submit" >
@@ -164,8 +165,9 @@
 		var countNow = false
 		var pay = document.getElementById('pay').value; 
 		var discounts = document.getElementById('discounts').value;
+		
 		var changes
-
+		
 
 		buildList()
 		
@@ -236,7 +238,10 @@
 			wrapper.innerHTML = ''
 			var wrapper2 = document.getElementById('wrapper2')
 			wrapper2.innerHTML = ''
-			
+			var numOfItems = document.getElementById('num').value;
+			if(numOfItems === ''){
+				numOfItems = 1
+			}
 
 
 
@@ -253,17 +258,19 @@
 				if(countNow){
 
 					if (overall_price_before_disc > 0  ){
-						overall_price_before_disc = parseFloat(overall_price_before_disc) + parseFloat(sell_price) 
+						overall_price_before_disc = parseFloat(overall_price_before_disc) + (parseFloat(sell_price) * parseFloat(numOfItems) ) 
 					}
 					else {
-						overall_price_before_disc = parseFloat(sell_price)
+						overall_price_before_disc = (parseFloat(sell_price) * parseFloat(numOfItems)) 
 					}
 
 				}
 				
 				countNow = false
-
+				
 				console.log(overall_price_before_disc)
+				console.log(num)
+
 					
 				for (var i in list){
 					
@@ -290,9 +297,7 @@
 								
 							</div>
 							
-							<div style="flex:1">
-								<button class="btn btn-sm btn-outline-info edit">Edit </button>
-							</div>
+							
 							<div style="flex:1">
 								<button class="btn btn-sm btn-outline-dark delete">-</button>
 							</div>
@@ -316,8 +321,13 @@
 
             var product_id = document.getElementById('product_id').value
 			var disc = document.getElementById('discounts').value
+			var num = document.getElementById('num').value;
+			if(num === ''){
+				num = 1
+			}
             console.log(product_id)
-			console.log(disc)
+			console.log(num)
+            
             
             fetch(url , {
                 method: 'POST' ,
@@ -326,6 +336,7 @@
                          },
                          body:JSON.stringify({
 							'product_id' : product_id ,
+							'num' : num , 
 							   
 							}),
                         
@@ -342,22 +353,11 @@
 								},
 								body:JSON.stringify({
 									'product_id' : product_id ,
+									'num' : num
 									
 									}),
 							})
-
-
-				
-
-
-
-
         })
-
-
-			
-
-
 
 			topForm.addEventListener('submit', function(s){
 			s.preventDefault()
@@ -400,10 +400,7 @@
 
 
                     })
-
-
-			
-            
+      
 	</script>
 	
 {% endblock content %}
