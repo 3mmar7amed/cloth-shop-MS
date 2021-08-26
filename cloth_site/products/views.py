@@ -46,20 +46,44 @@ def insert_products_inTheShop(request):
         buy_price = request.POST.get('buy_price')
         factory = request.POST.get('factory_name')
         product_count = request.POST.get('num_of_items')
-        try:
-                already_exsit = products.objects.get(product_id = id)
-                if name is '':
-                    already_exsit.num_of_items +=int(product_count)
-                    already_exsit.save()
-                    
-                    messages.success(request, 'تم زيادة عدد البضاعة بنجاح  ')
-                else:
-                    messages.success(request, 'لم يتم اضافة البضاعة ، قد يكون  كود المنتج مكرر ، حاول استخدام كود خاص بكل منتج ')
-        except:
-            q = products(product_id = id , name = name  ,sell_price = sell_price , buy_price = buy_price , num_of_items = product_count , factory_name = factory)
-            q.save()
-            messages.success(request, 'تم إضـافة البضاعة بنجاح  ')
+        comingFromInv = request.POST.get('op')
 
+
+        if(comingFromInv != None ):
+            try:
+                product = products_inTheInVentory.objects.get(product_id =str(id))
+                
+                product.num_of_items -= int(product_count)
+                product.save()
+                print(product.num_of_items)
+                print("i found it in the invetory ")
+
+                try:
+                    print("iam here in try  :")
+                    already_exsit = products.objects.get(product_id = id)
+                    
+                    if name == '':
+                        
+                        already_exsit.num_of_items +=int(product_count)
+                        print("product increased")
+                        already_exsit.save()
+                        # here if he wants to insert products coming from the inventory in the shop which is  existed in the shop already.
+
+                        messages.success(request, 'تم زيادة عدد البضاعة بنجاح  ')
+                    else:
+                        messages.success(request, 'هذه البضاعة موجودة مسبقا ، اذا كنت تريد زيادة البضاعة ،فقط ضع الكود والعدد ')
+                except:
+                    print("create new product")
+                    # here if he wants to insert products coming from the inventory in the shop which is not existed in the shop already. 
+                    q = products(product_id = id , name = product.name  ,sell_price = product.sell_price , buy_price = product.buy_price , num_of_items = product_count , factory_name = product.factory_name)
+                    q.save()
+                    messages.success(request, 'تم إضـافة البضاعة بنجاح  ')
+            
+            except:
+                print("product isnot in the inventory ")
+                messages.success(request, 'هذه البضاعة غير موجودة في المخزن ')
+                return redirect('insertProduct')
+           
 
         return redirect('insertProduct')
 
