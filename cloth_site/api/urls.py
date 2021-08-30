@@ -19,6 +19,8 @@ urlpatterns = [
     
     path('view_expenses_details/' , views.view_exepenses_details , name = "view_expenses_details") ,
     path('create_expenses/' , views.monthly_expenses , name = "create_expenses") ,
+    path('DialyProfit/' , views.DialyProfit , name = "DialyProfit") ,
+    path('ShowDialyProfit/' , views.ShowDialyProfit , name = "ShowDialyProfit") ,
     
     path('note-delete/<str:pk>/', views.Delete_note, name="note-delete"),
      

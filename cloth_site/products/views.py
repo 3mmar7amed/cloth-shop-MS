@@ -2,7 +2,7 @@ from django.db import reset_queries
 from django.shortcuts import render , redirect
 from django.contrib import messages
 from products.Forms import  sellForm , insertProductForm
-from products.models import products , sold_products , Profit , products_inTheInVentory , Expenses
+from products.models import products , sold_products , Profit , products_inTheInVentory , Expenses , dialyProfit
 import datetime 
 from .decorator import unauthenticated_user , admin_only
 from django.contrib.auth import authenticate, login, logout 
@@ -30,8 +30,8 @@ def checkLogin(request) :
 
 
 def logoutUser(request):
-	logout(request)
-	return redirect('login')
+    logout(request)
+    return redirect('login')
 
 
 
@@ -83,7 +83,24 @@ def insert_products_inTheShop(request):
                 print("product isnot in the inventory ")
                 messages.success(request, 'هذه البضاعة غير موجودة في المخزن ')
                 return redirect('insertProduct')
-           
+        else :
+            try:
+                already_exsit = products.objects.get(product_id = id)
+                if name == '':
+                    already_exsit.num_of_items +=int(product_count)
+                    already_exsit.save()
+                    
+                    messages.success(request, 'تم زيادة عدد البضاعة بنجاح  ')
+                else:
+                    messages.success(request, 'لم يتم اضافة البضاعة ، قد يكون  كود المنتج مكرر ، حاول استخدام كود خاص بكل منتج ')
+
+             
+                
+            except:
+                q = products(product_id = id , name = name  ,sell_price = sell_price , buy_price = buy_price , num_of_items = product_count , factory_name = factory)
+                q.save()
+                messages.success(request, 'تم إضـافة البضاعة بنجاح  ')
+
 
         return redirect('insertProduct')
 
@@ -171,15 +188,23 @@ def calculate_profit(buy_price , pay , numOfItems ) :
     today = datetime.datetime.now()
     month = today.month
     year = today.year
+    day = today.day
     date = str(month) +"-"+str(year)
-    print (date)
+    date_day = today.strftime(("%d-%m-%Y"))
+    print(date_day)
     try:
         q = Profit.objects.get(Date = date)
         q.profit += profit
     except:
         q = Profit(profit = profit , Date = date)
-       
+    try:
+        s = dialyProfit.objects.get(Date = date_day)
+        s.profit += profit
+    except:
+        s = dialyProfit(Date =date_day  ,profit  = profit , expenses = 0  )
+
     q.save()
+    s.save()
 
 def returns(id , discount):
 
@@ -218,10 +243,13 @@ def reduce_num_of_items_byOne(product_id):
     product_info.num_of_items -= 1 
     product_info.save()
 
+
 def store_expenses(expenses , price) :
     today = datetime.datetime.now()
     month = today.month
     year = today.year
+    day = today.day
+    date_day = today.strftime(("%d-%m-%Y"))
     date = str(month) +"-"+str(year)
     print(month)
     try:
@@ -232,6 +260,13 @@ def store_expenses(expenses , price) :
     except:
             ex = Expenses(month_date = date , price = int(price))
             ex.save()
+    try:
+        ex = dialyProfit.objects.get(Date = date_day)
+        ex.expenses += int(price)
+        ex.save()
+    except:
+        e = dialyProfit(Date = date_day ,profit = 0 ,expenses = price  )
+        e.save()
 
 
 

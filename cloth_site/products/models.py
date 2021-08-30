@@ -80,4 +80,8 @@ class Expenses_details(models.Model):
     expenses = models.CharField(max_length=1000 , null= True , blank= True )
     price = models.DecimalField(max_digits=19, decimal_places=2, null= True , blank= True )
     Date = models.CharField(max_length=1000 ,default="" ,  null= True , blank= True )
- 
+
+class dialyProfit(models.Model):
+    Date = models.CharField(max_length=1000 ,default="" ,  null= True , blank= True )
+    profit = models.DecimalField(max_digits=19, decimal_places=2, null= True , blank= True )
+    expenses =  models.DecimalField(max_digits=19, decimal_places=2, null= True , blank= True )

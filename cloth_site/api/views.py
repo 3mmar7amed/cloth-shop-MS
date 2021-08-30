@@ -8,8 +8,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from socket import socket
 from django.http import JsonResponse
-from api.serializers import products_inTheInVentory_serializer, expenses_details_serializer ,  expense_serializer , viewSolds_serializer , note_serializer , TaskSerializer ,bills_serializer,  returns_serializer , viewDailySolds_serializer  , createSolds_serializer , productsSerializer , viewProfit_serializer
-from products.models import Expenses , Expenses_details , sold_products , customer_note , products  , Profit , Returns_products , bills , products_inTheInVentory ,Task
+from api.serializers import dialyProfitSerializer, products_inTheInVentory_serializer, expenses_details_serializer ,  expense_serializer , viewSolds_serializer , note_serializer , TaskSerializer ,bills_serializer,  returns_serializer , viewDailySolds_serializer  , createSolds_serializer , productsSerializer , viewProfit_serializer
+from products.models import dialyProfit, Expenses , Expenses_details , sold_products , customer_note , products  , Profit , Returns_products , bills , products_inTheInVentory ,Task
 from products.views import solds , returns , Create_customer_note , checkLogin , store_expenses 
 
 
@@ -286,3 +286,25 @@ def view_exepenses_details(request) :
     all_products = Expenses_details.objects.filter().order_by('-id')[:10]
     JsonData = expenses_details_serializer(all_products, many=True)
     return Response(JsonData.data)
+
+
+@api_view(['GET'])
+def DialyProfit(request):
+    today = datetime.datetime.now()
+    date_day = today.strftime(("%d-%m-%Y"))
+    print(date_day)
+    tasks = dialyProfit.objects.filter(Date = date_day)
+    serializer = dialyProfitSerializer(tasks, many=True)
+    return Response(serializer.data)
+   
+    
+@api_view(['GET'])
+def ShowDialyProfit(request):
+    today = datetime.datetime.now()
+    date_day = today.strftime(("%d-%m-%Y"))
+    print(date_day)
+    tasks = dialyProfit.objects.all().order_by('-id')[:30]
+    serializer = dialyProfitSerializer(tasks, many=True)
+    return Response(serializer.data)
+   
+    
