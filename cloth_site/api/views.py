@@ -8,8 +8,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from socket import socket
 from django.http import JsonResponse
-from api.serializers import dialyProfitSerializer, products_inTheInVentory_serializer, expenses_details_serializer ,  expense_serializer , viewSolds_serializer , note_serializer , TaskSerializer ,bills_serializer,  returns_serializer , viewDailySolds_serializer  , createSolds_serializer , productsSerializer , viewProfit_serializer
-from products.models import dialyProfit, Expenses , Expenses_details , sold_products , customer_note , products  , Profit , Returns_products , bills , products_inTheInVentory ,Task
+from api.serializers import  dialyIncomeSerializer, products_inTheInVentory_serializer, expenses_details_serializer ,  expense_serializer , viewSolds_serializer , note_serializer , TaskSerializer ,bills_serializer,  returns_serializer , viewDailySolds_serializer  , createSolds_serializer , productsSerializer , viewProfit_serializer
+from products.models import dialyIncome, dialyProfit, Expenses , Expenses_details , sold_products , customer_note , products  , Profit , Returns_products , bills , products_inTheInVentory ,Task
 from products.views import solds , returns , Create_customer_note , checkLogin , store_expenses 
 
 
@@ -75,8 +75,13 @@ def reduce_profit_by_discount(request):
 
     discount = request.data.get('discounts')
     q = Profit.objects.filter().last()
+    s = dialyIncome.objects.filter().last()
+
     try:
         new_profit = q.profit - int(discount)
+        s.income -= discount
+        s.save()
+        
     except:
         new_profit = q.profit
     q.profit = new_profit
@@ -289,22 +294,22 @@ def view_exepenses_details(request) :
 
 
 @api_view(['GET'])
-def DialyProfit(request):
+def DialyIncome(request):
     today = datetime.datetime.now()
     date_day = today.strftime(("%d-%m-%Y"))
     print(date_day)
-    tasks = dialyProfit.objects.filter(Date = date_day)
-    serializer = dialyProfitSerializer(tasks, many=True)
+    tasks = dialyIncome.objects.filter(Date = date_day)
+    serializer = dialyIncomeSerializer(tasks, many=True)
     return Response(serializer.data)
    
     
 @api_view(['GET'])
-def ShowDialyProfit(request):
+def ShowDialyIncome(request):
     today = datetime.datetime.now()
     date_day = today.strftime(("%d-%m-%Y"))
     print(date_day)
-    tasks = dialyProfit.objects.all().order_by('-id')[:30]
-    serializer = dialyProfitSerializer(tasks, many=True)
+    tasks = dialyIncome.objects.all().order_by('-id')[:30]
+    serializer = dialyIncomeSerializer(tasks, many=True)
     return Response(serializer.data)
    
     

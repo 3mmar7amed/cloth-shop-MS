@@ -2,7 +2,7 @@ from django.db import reset_queries
 from django.shortcuts import render , redirect
 from django.contrib import messages
 from products.Forms import  sellForm , insertProductForm
-from products.models import products , sold_products , Profit , products_inTheInVentory , Expenses , dialyProfit
+from products.models import products , sold_products , Profit , products_inTheInVentory , Expenses , dialyProfit , dialyIncome
 import datetime 
 from .decorator import unauthenticated_user , admin_only
 from django.contrib.auth import authenticate, login, logout 
@@ -162,7 +162,7 @@ def solds(request):
         today = datetime.datetime.now()
         date = today.strftime(("%d-%m-%Y    %H:%M:%S"))
         Y_M_D_solds = today.strftime(("%d-%m-%Y"))
-        print( today.strftime(("%d-%m-%Y")) )
+
         data = {
                     "product_id" : id ,
                     "name" : product_info.name , 
@@ -183,8 +183,9 @@ def solds(request):
 
 
 
-def calculate_profit(buy_price , pay , numOfItems ) :
-    profit = (pay - buy_price) * numOfItems
+def calculate_profit(buy_price , sell_price , numOfItems ) :
+    profit = (sell_price - buy_price) * numOfItems
+    all_price = sell_price * numOfItems
     today = datetime.datetime.now()
     month = today.month
     year = today.year
@@ -198,10 +199,10 @@ def calculate_profit(buy_price , pay , numOfItems ) :
     except:
         q = Profit(profit = profit , Date = date)
     try:
-        s = dialyProfit.objects.get(Date = date_day)
-        s.profit += profit
+        s = dialyIncome.objects.get(Date = date_day)
+        s.income += all_price
     except:
-        s = dialyProfit(Date =date_day  ,profit  = profit , expenses = 0  )
+        s = dialyIncome(Date =date_day  ,income  = all_price , expenses = 0  )
 
     q.save()
     s.save()
@@ -216,6 +217,9 @@ def returns(id , discount):
             product_info.save()
             profit = product_info.sell_price - product_info.buy_price
             q = Profit.objects.filter().last()
+            s = dialyIncome.objects.filter().last()
+            s.income -= (product_info.sell_price - discount)
+            s.save()
             q.profit -= (profit- discount )
             q.save()
         
@@ -261,11 +265,11 @@ def store_expenses(expenses , price) :
             ex = Expenses(month_date = date , price = int(price))
             ex.save()
     try:
-        ex = dialyProfit.objects.get(Date = date_day)
+        ex = dialyIncome.objects.get(Date = date_day)
         ex.expenses += int(price)
         ex.save()
     except:
-        e = dialyProfit(Date = date_day ,profit = 0 ,expenses = price  )
+        e = dialyIncome(Date = date_day ,income = 0 ,expenses = price  )
         e.save()
 
 

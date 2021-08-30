@@ -85,3 +85,11 @@ class dialyProfit(models.Model):
     Date = models.CharField(max_length=1000 ,default="" ,  null= True , blank= True )
     profit = models.DecimalField(max_digits=19, decimal_places=2, null= True , blank= True )
     expenses =  models.DecimalField(max_digits=19, decimal_places=2, null= True , blank= True )
+
+
+    
+class dialyIncome(models.Model):
+    Date = models.CharField(max_length=1000 ,default="" ,  null= True , blank= True )
+    income = models.DecimalField(max_digits=19, decimal_places=2, null= True , blank= True )
+    expenses =  models.DecimalField(max_digits=19, decimal_places=2, null= True , blank= True )
+

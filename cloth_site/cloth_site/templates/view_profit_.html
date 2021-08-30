@@ -67,7 +67,7 @@
                     <thead>
                         <tr>
                             <th> اليـــــوم</th>
-                             <th>المكســـب</th>
+                             <th>الداخــــل</th>
                              <th>المنصـــرف</th>
     
                     
@@ -115,8 +115,9 @@
             <table id="exp" class="exp">
                 <thead>
                     <tr>
+                        <th>التاريخ</th>
                         <th> المصاريف</th>
-                         <th>التاريخ</th>
+                         
                     </tr>
                 </thead>
                 
@@ -133,7 +134,7 @@
     view_ddata();
       function view_ddata(){
           var wrapper = document.getElementById('list-wrapper')
-          var url = 'http://127.0.0.1:8000/api/ShowDialyProfit/'
+          var url = 'http://127.0.0.1:8000/api/ShowDialyIncome/'
       fetch(url)
       .then((resp) => resp.json())
       .then(function(data){
@@ -143,7 +144,7 @@
 data: data,
 columns: [
   { data: "Date" },
-  { data:"profit" },
+  { data:"income" },
   { data:"expenses" },
   
 
@@ -193,11 +194,8 @@ columns: [
        $('#exp').DataTable( {
 data: data,
 columns: [
-
-        
-  
+  { data:"month_date" },
   { data: "price" },
-  { data:"month_date" }
 
 ]
 } );
