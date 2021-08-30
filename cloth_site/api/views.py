@@ -79,9 +79,10 @@ def reduce_profit_by_discount(request):
 
     try:
         new_profit = q.profit - int(discount)
-        s.income -= discount
+        s.income -= int(discount)
+        s.profit -= int(discount)
         s.save()
-        
+
     except:
         new_profit = q.profit
     q.profit = new_profit

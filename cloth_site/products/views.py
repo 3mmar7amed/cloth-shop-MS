@@ -201,8 +201,9 @@ def calculate_profit(buy_price , sell_price , numOfItems ) :
     try:
         s = dialyIncome.objects.get(Date = date_day)
         s.income += all_price
+        s.profit += profit
     except:
-        s = dialyIncome(Date =date_day  ,income  = all_price , expenses = 0  )
+        s = dialyIncome(Date =date_day  ,income  = all_price , expenses = 0 , profit = profit  )
 
     q.save()
     s.save()
@@ -269,7 +270,7 @@ def store_expenses(expenses , price) :
         ex.expenses += int(price)
         ex.save()
     except:
-        e = dialyIncome(Date = date_day ,income = 0 ,expenses = price  )
+        e = dialyIncome(Date = date_day ,income = 0 ,expenses = price ,  profit = 0  )
         e.save()
 
 
