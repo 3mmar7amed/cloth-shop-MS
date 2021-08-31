@@ -156,7 +156,7 @@ def solds(request):
         num_of_items = request.data.get('num')
         print(num_of_items)
         product_info = products.objects.get(product_id = id)
-        product_info.num_of_items -= 1
+        product_info.num_of_items -= num_of_items
         product_info.save()
         Sell_price = (product_info.sell_price * int(num_of_items))
         today = datetime.datetime.now()
