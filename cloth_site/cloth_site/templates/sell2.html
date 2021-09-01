@@ -258,10 +258,10 @@
 				if(countNow){
 
 					if (overall_price_before_disc > 0  ){
-						overall_price_before_disc = parseFloat(overall_price_before_disc) + (parseFloat(sell_price) * parseFloat(numOfItems) ) 
+						overall_price_before_disc = parseFloat(overall_price_before_disc) + (parseFloat(sell_price)  ) 
 					}
 					else {
-						overall_price_before_disc = (parseFloat(sell_price) * parseFloat(numOfItems)) 
+						overall_price_before_disc = (parseFloat(sell_price) ) 
 					}
 
 				}
@@ -281,15 +281,20 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
+										<th scope="col">الكود</th>
                                         <th scope="col">الاسم</th>
                                         <th scope="col">السعر</th>
+										<th scope="col">العدد</th>
 										<th scope="col">المطلوب حتي الان</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
+										<td>${list[i].product_id}</td>
                                         <td>${list[i].name}</td>
                                         <td>${list[i].sell_price}</td>
+										<td>${list[i].num_of_items}</td>
+										
 										<td>${overall_price_before_disc}</td>
                                         </tr>
                                     </tbody>

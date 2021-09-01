@@ -36,6 +36,7 @@ def create_sold_product(request):
     print(Data)
     serializer = createSolds_serializer(data=Data)
     if serializer.is_valid():
+        print("iam valid")
         serializer.save() 
     else : print ("not valid")
     return Response(serializer.data)
