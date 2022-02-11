@@ -41,6 +41,7 @@
 </head>
 
 <body>
+
 <div class="glob-w">
     <table id="example" class="example">
         <thead>
@@ -60,10 +61,51 @@
             
         </tbody>
         </table>
+
+        <div class="btn">
+			<input onclick="deleteAllsolds()" id="submit" type="submit"  class="add_btn" value="مســــح">
+		</div>
+
+
 </div>
 
 
 <script>
+    function getCookie(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+					
+		        }
+		    }
+		    return cookieValue;
+		}
+
+    function deleteAllsolds(){
+
+        
+        var csrftoken = getCookie('csrftoken');
+        console.log("iam here ") ; 
+
+        fetch(`http://127.0.0.1:8000/api/delete_sold_product/` , {
+                method: 'DELETE' ,
+                headers: { 'Content-Type': 'application/json' ,
+							'X-CSRFToken':csrftoken,
+                         }
+                        
+                        }  )
+                        document.location.reload(true)
+
+    }
+
+                
           view_ddata();
             function view_ddata(){
                 var wrapper = document.getElementById('list-wrapper')

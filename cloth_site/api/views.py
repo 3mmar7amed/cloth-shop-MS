@@ -11,6 +11,7 @@ from django.http import JsonResponse
 from api.serializers import  dialyIncomeSerializer, products_inTheInVentory_serializer, expenses_details_serializer ,  expense_serializer , viewSolds_serializer , note_serializer , TaskSerializer ,bills_serializer,  returns_serializer , viewDailySolds_serializer  , createSolds_serializer , productsSerializer , viewProfit_serializer
 from products.models import dialyIncome, dialyProfit, Expenses , Expenses_details , sold_products , customer_note , products  , Profit , Returns_products , bills , products_inTheInVentory ,Task
 from products.views import solds , returns , Create_customer_note , checkLogin , store_expenses 
+from django.contrib import messages
 
 
 
@@ -98,6 +99,7 @@ def returns_products(request):
         discount = request.data.get('discounts')
 
         returns(id , discount)
+
         product_name =products.objects.get(product_id  = id).name
         today = datetime.datetime.now()
         date = today.strftime(("%d-%m-%Y    %H:%M:%S"))
@@ -110,8 +112,9 @@ def returns_products(request):
         serializer = returns_serializer(data=data)
         if serializer.is_valid():
             serializer.save() 
+            
         
-        return Response(data = serializer.data)
+        return Response(data = serializer.data )
     else :
         all_products = Returns_products.objects.all()
         JsonData = returns_serializer(all_products, many=True)
@@ -151,6 +154,13 @@ def billsDelete(request):
 
 
 
+@api_view(['DELETE'])
+def deleteSoldsProducts(request):
+
+    task = sold_products.objects.all()
+    task.delete()
+    print("delete is done ")
+    return Response('Item succsesfully delete!')
 
 
 

@@ -223,6 +223,7 @@ def returns(id , discount):
             s.save()
             q.profit -= (profit- discount )
             q.save()
+
         
         
 

@@ -8,6 +8,8 @@ urlpatterns = [
     path('viewInventory/' , views.view_productsInInventory , name = "viewInventory") ,
     path('create_sold_product/' , views.create_sold_product , name ="create_sold_product" ),
     path('view_sold_product/' , views.view_solds , name ="view_sold_product" ),
+    path('delete_sold_product/' , views.deleteSoldsProducts , name ="delete_sold_product" ),
+
     path('view_daily_solds/' , views.view_daily_solds , name ="view_daily_solds" ),
     path('view_profit/' , views.view_profit , name ="view_profit" ),
     path('reduce_profit_by_discount/' , views.reduce_profit_by_discount , name ="reduce_profit_by_discount" ),
